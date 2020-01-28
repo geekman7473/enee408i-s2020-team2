@@ -1,1 +1,1 @@
-# enee408i-s2020-team2
+# ENEE408I Spring 2020, Team 2
