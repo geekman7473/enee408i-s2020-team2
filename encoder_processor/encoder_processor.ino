@@ -49,8 +49,9 @@ void requestEvent() {
 
 void loop(){
   // Spin forever
-  Serial.print(encoder.read());
-  Serial.print(test);
+  Serial.println(encoder.get());
+  Serial.println(test);
+  delay(1000);
 }
 
 // Speed timer setup:
@@ -65,5 +66,6 @@ void speed_setup()
 ISR(TCA0_OVF_vect)
 {
   test++;
+  TCA0.SINGLE.INTFLAGS |= TCA_SINGLE_OVF_bm;
 }
 
