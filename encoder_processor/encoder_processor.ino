@@ -23,6 +23,7 @@ void setup() {
   Wire.onRequest(requestEvent);
   Wire.onReceive(receiveEvent);
   Serial.begin(9600);
+  speed_setup();
 }
 
 void receiveEvent(int bytes) {
@@ -48,17 +49,17 @@ void requestEvent() {
 
 void loop(){
   // Spin forever
-  Serial.println(encoder.read());
+  Serial.print(encoder.read());
+  Serial.print(test);
 }
 
 // Speed timer setup:
 void speed_setup()
 {
   // Write TOP:
-  TCA0.SINGLE.PER = 0xFFFF;
-  // Setup the prescaler and enable:
-  TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV16_gc | TCA_SINGLE_ENABLE_bm;
-  //TCB0.CTRLA |= TCB_ENABLE|TCB_CLKSEL_ 
+  TCA0.SINGLE.PER = F_CPU / 1000 - 1;   // Overflow after 1 ms
+  TCA0.SINGLE.INTCTRL = TCA_SINGLE_OVF_bm;   // Enable overflow interrupt
+	TCA0.SINGLE.CTRLA = TCA_SINGLE_ENABLE_bm;   // Start without prescaler, at full CPU clock Speed
 }
 
 ISR(TCA0_OVF_vect)
