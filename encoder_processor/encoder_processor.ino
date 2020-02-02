@@ -1,8 +1,8 @@
 #include<Wire.h>
-#include<Encoder.h>
+#include "Encoder.h"
 
 const uint8_t I2C_ADDRESS = 0x042;
-const uint8_t ENC_PIN1 = 5;
+const uint8_t ENC_PIN1 = 17;
 const uint8_t ENC_PIN2 = 6;
 
 const uint8_t REGISTER_COUNT = 0x0;
@@ -23,7 +23,7 @@ void setup() {
   Wire.onRequest(requestEvent);
   Wire.onReceive(receiveEvent);
   Serial.begin(9600);
-  speed_setup();
+  //speed_setup();
 }
 
 void receiveEvent(int bytes) {
@@ -49,8 +49,8 @@ void requestEvent() {
 
 void loop(){
   // Spin forever
-  Serial.print(encoder.read());
-  Serial.print(test);
+  Serial.println(encoder.read());
+  //Serial.print(test);
 }
 
 // Speed timer setup:
@@ -66,4 +66,3 @@ ISR(TCA0_OVF_vect)
 {
   test++;
 }
-
