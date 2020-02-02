@@ -67,4 +67,3 @@ ISR(TCA0_OVF_vect)
   test++;
   TCA0.SINGLE.INTFLAGS |= TCA_SINGLE_OVF_bm;
 }
->>>>>>> b0884b37a46ae30fde1569ab74ef23e515d7c5b8
