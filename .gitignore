@@ -130,3 +130,7 @@ dmypy.json
 
 # emacs backups
 *~
+
+# arduino build objects
+*.elf
+*.hex
