@@ -3,7 +3,7 @@
 
 const uint8_t I2C_ADDRESS = 0x042;
 const uint8_t ENC_PIN1 = 17;
-const uint8_t ENC_PIN2 = 6;
+const uint8_t ENC_PIN2 = 7;
 
 const uint8_t REGISTER_COUNT = 0x0;
 const uint8_t REGISTER_VELOCITY = 0x1;
@@ -19,9 +19,10 @@ reading rpm;
 volatile int test = 0;
 
 void setup() {
-  Wire.begin(I2C_ADDRESS);
-  Wire.onRequest(requestEvent);
-  Wire.onReceive(receiveEvent);
+  //Wire.begin(I2C_ADDRESS);
+  //Wire.onRequest(requestEvent);
+  //Wire.onReceive(receiveEvent);
+  encoder.write(0);
   Serial.begin(9600);
   //speed_setup();
 }
