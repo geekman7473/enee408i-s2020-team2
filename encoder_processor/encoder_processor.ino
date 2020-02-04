@@ -4,9 +4,9 @@
 
 const uint8_t I2C_ADDRESS = 0x42;
 const uint8_t ENC_1_PIN1 = 17;
-const uint8_t ENC_1_PIN2 = 7;
-const uint8_t ENC_2_PIN1 = 16;
-const uint8_t ENC_2_PIN2 = 6;
+const uint8_t ENC_1_PIN2 = 16;
+const uint8_t ENC_2_PIN1 = 6;
+const uint8_t ENC_2_PIN2 = 7;
 
 // TODO: Move this to comms library.
 const uint8_t REGISTER_COUNT_LEFT = 0x01;
@@ -32,11 +32,11 @@ typedef union float_i2c {
   float fval;
 } float_i2c_t;
 
-volatile int32_i2c_t prev_left;
-volatile int32_i2c_t prev_right;
+volatile int32_t prev_left;
+volatile int32_t prev_right;
 
-volatile float_i2c_t speed_left;
-volatile float_i2c_t speed_right;
+volatile int32_i2c_t speed_left;
+volatile int32_i2c_t speed_right;
 
 volatile int test = 0;
 
@@ -47,8 +47,8 @@ void setup()
   Wire.onReceive(receiveEvent);
   encoder_left.write(0);
   encoder_right.write(0);
-  prev_left.ival = 0;
-  prev_right.ival = 0;
+  prev_left = 0;
+  prev_right = 0;
   Serial.begin(9600);
   speed_setup();
 }
@@ -95,7 +95,6 @@ void receiveEvent(int bytes)
 void requestEvent()
 {
   int32_i2c_t count;
- 
   switch(opcode)
   {
    case REGISTER_COUNT_LEFT:
@@ -106,6 +105,14 @@ void requestEvent()
    case REGISTER_COUNT_RIGHT:
      count.ival = encoder_right.read();
      Wire.write(count.buf, sizeof(int32_i2c_t));
+     break;
+
+   case REGISTER_VELOCITY_LEFT:
+     Wire.write((byte*) speed_left.buf, sizeof(int32_i2c_t));
+     break;
+
+   case REGISTER_VELOCITY_RIGHT:
+     Wire.write((byte*) speed_right.buf, sizeof(int32_i2c_t));
      break;
   }
 }
@@ -119,12 +126,6 @@ void loop()
   //Serial.println(encoder_right.read());
   //Serial.print(test);
   /*
-  int32_t curr_left = encoder_left.get();
-  int32_t curr_right = encoder_right.get();
-
-  // Measure ticks per second:
-  int32_t dist_left = (curr_left - prev_left) * 100;
-  int32_t dist_right = (curr_right - prev_right) * 100;
 
   delay(10);
   */
@@ -139,7 +140,7 @@ void loop()
 void speed_setup()
 {
   // Write TOP:
-  TCB2.CCMP =  250000; // Overflow after 10 ms using the TCA clk 
+  TCB2.CCMP =  2500; // Overflow after 10 ms using the TCA clk 
   TCB2.INTCTRL = TCB_CAPT_bm;
   TCB2.CTRLB = TCB_CNTMODE_INT_gc; // Setup timer into periodic interupt mode
   TCB2.CTRLA = TCB_ENABLE_bm | TCB_CLKSEL_CLKTCA_gc; // Enable counter Using the TCA clock
@@ -148,6 +149,15 @@ void speed_setup()
 
 ISR(TCB2_INT_vect)
 {
-  test++; 
+  int32_t curr_left = encoder_left.read();
+  int32_t curr_right = encoder_right.read();
+
+  // Measure ticks per second:
+  speed_left.ival = (curr_left - prev_left) * 100;
+  speed_right.ival= (curr_right - prev_right) * 100;
+
+  prev_left = curr_left;
+  prev_right = curr_right;
+  
   TCB2.INTFLAGS = TCB_CAPT_bm;
 }
