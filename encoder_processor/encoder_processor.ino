@@ -2,12 +2,13 @@
 #include "Encoder.h"
 #include<Arduino.h>
 
-const uint8_t I2C_ADDRESS = 0x042;
+const uint8_t I2C_ADDRESS = 0x42;
 const uint8_t ENC_1_PIN1 = 17;
 const uint8_t ENC_1_PIN2 = 7;
 const uint8_t ENC_2_PIN1 = 16;
 const uint8_t ENC_2_PIN2 = 6;
 
+// TODO: Move this to comms library.
 const uint8_t REGISTER_COUNT_LEFT = 0x01;
 const uint8_t REGISTER_COUNT_RIGHT = 0x02;
 const uint8_t REGISTER_VELOCITY_LEFT = 0x11;
@@ -52,10 +53,11 @@ void setup()
   speed_setup();
 }
 
+// TODO: move this to comms library
 void receiveEvent(int bytes)
 {
   opcode = Wire.read();
-
+  Serial.println(opcode);
   if(bytes > 1)
   {
     int32_i2c_t val;
@@ -89,6 +91,7 @@ void receiveEvent(int bytes)
   }
 }
 
+// TODO: move this to comms library
 void requestEvent()
 {
   int32_i2c_t count;
@@ -129,7 +132,7 @@ void loop()
   //Serial.println(test);
 
   delay(10000);
-  Serial.println(test);
+  //Serial.println(test);
 }
 
 // Speed timer setup:
