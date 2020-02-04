@@ -8,8 +8,8 @@
 #define RIGHT_MOTOR_INA 3 
 #define RIGHT_MOTOR_INB 2
 #define LEFT_MOTOR_PWM 9
-#define LEFT_MOTOR_INA 7
-#define LEFT_MOTOR_INB 8
+#define LEFT_MOTOR_INA 8
+#define LEFT_MOTOR_INB 7
 
 #define TICKS_PER_REV 3200
 #define M_PI 3.14159265358979323846
@@ -63,10 +63,10 @@ void setup()
 
   digitalWrite(LEFT_MOTOR_INA, HIGH);
   digitalWrite(LEFT_MOTOR_INB, LOW);
-  analogWrite(LEFT_MOTOR_PWM, 100);
+  analogWrite(LEFT_MOTOR_PWM, 50);
   digitalWrite(RIGHT_MOTOR_INA, HIGH);
   digitalWrite(RIGHT_MOTOR_INB, LOW);
-  analogWrite(RIGHT_MOTOR_PWM, 100);
+  analogWrite(RIGHT_MOTOR_PWM, 50);
   delay(5000);
   analogWrite(LEFT_MOTOR_PWM, 0);
   analogWrite(RIGHT_MOTOR_PWM, 0);
