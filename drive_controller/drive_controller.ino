@@ -50,26 +50,28 @@ void setup()
   leftMotorSetpoint = 0;
   rightMotorSetpoint = 0;
 
-  Wire.begin();
-  Serial.begin(9600);
   //leftMotorPID.SetMode(AUTOMATIC);
   //rightMotorPID.SetMode(AUTOMATIC);
-  pinMode(RIGHT_MOTOR_INA, OUTPUT);
-  pinMode(RIGHT_MOTOR_INB, OUTPUT);
-  pinMode(RIGHT_MOTOR_PWM, OUTPUT);
-  pinMode(LEFT_MOTOR_INA, OUTPUT);
-  pinMode(LEFT_MOTOR_INB, OUTPUT);
-  pinMode(LEFT_MOTOR_INB, OUTPUT);
 
-  digitalWrite(LEFT_MOTOR_INA, HIGH);
-  digitalWrite(LEFT_MOTOR_INB, LOW);
-  analogWrite(LEFT_MOTOR_PWM, 50);
-  digitalWrite(RIGHT_MOTOR_INA, HIGH);
-  digitalWrite(RIGHT_MOTOR_INB, LOW);
-  analogWrite(RIGHT_MOTOR_PWM, 50);
-  delay(5000);
-  analogWrite(LEFT_MOTOR_PWM, 0);
-  analogWrite(RIGHT_MOTOR_PWM, 0);
+  Wire.begin();
+  Serial.begin(9600);
+
+//  pinMode(RIGHT_MOTOR_INA, OUTPUT);
+//  pinMode(RIGHT_MOTOR_INB, OUTPUT);
+//  pinMode(RIGHT_MOTOR_PWM, OUTPUT);
+//  pinMode(LEFT_MOTOR_INA, OUTPUT);
+//  pinMode(LEFT_MOTOR_INB, OUTPUT);
+//  pinMode(LEFT_MOTOR_INB, OUTPUT);
+//
+//  digitalWrite(LEFT_MOTOR_INA, HIGH);
+//  digitalWrite(LEFT_MOTOR_INB, LOW);
+//  analogWrite(LEFT_MOTOR_PWM, 50);
+//  digitalWrite(RIGHT_MOTOR_INA, HIGH);
+//  digitalWrite(RIGHT_MOTOR_INB, LOW);
+//  analogWrite(RIGHT_MOTOR_PWM, 50);
+//  delay(5000);
+//  analogWrite(LEFT_MOTOR_PWM, 0);
+//  analogWrite(RIGHT_MOTOR_PWM, 0);
 }
 
 void loop()
