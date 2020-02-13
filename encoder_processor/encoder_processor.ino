@@ -3,8 +3,8 @@
 #include<Arduino.h>
 
 const uint8_t I2C_ADDRESS = 0x42;
-const uint8_t ENC_1_PIN1 = 17;
-const uint8_t ENC_1_PIN2 = 16;
+const uint8_t ENC_1_PIN1 = 4;
+const uint8_t ENC_1_PIN2 = 5;
 const uint8_t ENC_2_PIN1 = 6;
 const uint8_t ENC_2_PIN2 = 7;
 
@@ -57,7 +57,7 @@ void setup()
 void receiveEvent(int bytes)
 {
   opcode = Wire.read();
-  Serial.println(opcode);
+
   if(bytes > 1)
   {
     int32_i2c_t val;
@@ -95,6 +95,7 @@ void receiveEvent(int bytes)
 void requestEvent()
 {
   int32_i2c_t count;
+  
   switch(opcode)
   {
    case REGISTER_COUNT_LEFT:
@@ -124,16 +125,16 @@ void loop()
   //Serial.print(encoder_left.read());
   //Serial.print(" ");
   //Serial.println(encoder_right.read());
-  //Serial.print(test);
+   //Serial.print(test);
   /*
 
   delay(10);
   */
 
-  //Serial.println(test);
-
-  delay(10000);
-  //Serial.println(test);
+  //Serial.print("Left speed: ");Serial.print(speed_left.ival);
+  //Serial.print("Right speed: ");Serial.println(speed_right.ival);
+  
+  delay(100);
 }
 
 // Speed timer setup:
@@ -144,18 +145,16 @@ void speed_setup()
   TCB2.INTCTRL = TCB_CAPT_bm;
   TCB2.CTRLB = TCB_CNTMODE_INT_gc; // Setup timer into periodic interupt mode
   TCB2.CTRLA = TCB_ENABLE_bm | TCB_CLKSEL_CLKTCA_gc; // Enable counter Using the TCA clock
-  Serial.println(F_CPU);
 }
 
 ISR(TCB2_INT_vect)
 {
   int32_t curr_left = encoder_left.read();
   int32_t curr_right = encoder_right.read();
-
   // Measure ticks per second:
-  speed_left.ival = (curr_left - prev_left) * 100;
-  speed_right.ival= (curr_right - prev_right) * 100;
-
+  speed_left.ival = -(curr_left - prev_left) * 100;
+  speed_right.ival= -(curr_right - prev_right) * 100;
+  
   prev_left = curr_left;
   prev_right = curr_right;
   

@@ -1,6 +1,8 @@
-//#include <PID_v1.h>
+#include <PID_v1.h>
 #include <Wire.h>
+#include <SerialCommands.h>
 
+// TODO: refactor this into an enum
 #define LEFT_MOTOR 0
 #define RIGHT_MOTOR 1
 
@@ -39,11 +41,61 @@ const uint8_t ENCODER_SLAVE_ADDRESS = 0x42;
 double leftMotorSetpoint, rightMotorSetpoint, leftMotorSpeed, rightMotorSpeed;
 int32_t leftMotorCount, rightMotorCount;
 int32_t leftMotorCPS, rightMotorCPS;
-uint8_t leftMotorPWM, rghtMotorPWM;
-int leftKp = 2, rightKp = 2, leftKi = 5, rightKi = 5, leftKd = 0, rightKd = 0;
+double leftMotorPWM, rightMotorPWM;
+double leftKp = 2, rightKp = 2, leftKi = 5, rightKi = 5, leftKd = 0, rightKd = 0;
 
-//PID leftMotorPID(&leftMotorSpeed, &leftMotorPWM, &leftMotorSetpoint, leftKp, leftKi, leftKd, DIRECT);
-//PID rightMotorPID(&rightMotorSpeed, &rightMotorPWM, &rightMotorSetpoint, rightKp, rightKi, rightKd, DIRECT);
+PID leftMotorPID(&leftMotorSpeed, &leftMotorPWM, &leftMotorSetpoint, leftKp, leftKi, leftKd, DIRECT);
+PID rightMotorPID(&rightMotorSpeed, &rightMotorPWM, &rightMotorSetpoint, rightKp, rightKi, rightKd, DIRECT);
+
+
+// TODO maybe move to comms library
+char serial_command_buffer[64];
+SerialCommands serial_commands(&Serial, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
+void recv_speed(SerialCommands* sender)
+{
+  char *arg;
+
+  arg = sender->Next();
+  if (arg != NULL) {
+    leftMotorSetpoint = atof(arg);
+  }
+  else {// TODO: Add error handling
+  }
+
+  arg = sender->Next();
+  if (arg != NULL) {
+    rightMotorSetpoint = atof(arg);
+  }
+  else {//TODO: Add error handling
+  }
+}
+SerialCommand cmd_recv_speed("SPEED", recv_speed);
+
+// TODO Move to actuator state library
+void set_speed(int motor, double speed)
+{
+  uint8_t pinA = motor ? RIGHT_MOTOR_INA : LEFT_MOTOR_INA;
+  uint8_t pinB = motor ? RIGHT_MOTOR_INB : LEFT_MOTOR_INB;
+  uint8_t pinPWM = motor ? RIGHT_MOTOR_PWM : LEFT_MOTOR_PWM;
+  
+  if(speed > 0)
+  {
+    digitalWrite(pinA, HIGH);
+    digitalWrite(pinB, LOW);
+  }
+  else if(speed < 0)
+  {
+    digitalWrite(pinA, LOW);
+    digitalWrite(pinB, HIGH);
+  }
+  else
+  {
+    // We idle here instead of braking for the benifit of PW
+    digitalWrite(pinA, LOW);
+    digitalWrite(pinB, LOW);
+  }
+  analogWrite(pinPWM, speed);
+}
 
 void setup()
 {
@@ -52,8 +104,8 @@ void setup()
 
   Wire.begin();
   Serial.begin(9600);
-  //leftMotorPID.SetMode(AUTOMATIC);
-  //rightMotorPID.SetMode(AUTOMATIC);
+  leftMotorPID.SetMode(AUTOMATIC);
+  rightMotorPID.SetMode(AUTOMATIC);
   pinMode(RIGHT_MOTOR_INA, OUTPUT);
   pinMode(RIGHT_MOTOR_INB, OUTPUT);
   pinMode(RIGHT_MOTOR_PWM, OUTPUT);
@@ -61,35 +113,40 @@ void setup()
   pinMode(LEFT_MOTOR_INB, OUTPUT);
   pinMode(LEFT_MOTOR_INB, OUTPUT);
 
+  leftMotorSetpoint = 10;
+  rightMotorSetpoint = 10;
   digitalWrite(LEFT_MOTOR_INA, HIGH);
   digitalWrite(LEFT_MOTOR_INB, LOW);
-  analogWrite(LEFT_MOTOR_PWM, 50);
   digitalWrite(RIGHT_MOTOR_INA, HIGH);
   digitalWrite(RIGHT_MOTOR_INB, LOW);
-  analogWrite(RIGHT_MOTOR_PWM, 50);
-  delay(5000);
-  analogWrite(LEFT_MOTOR_PWM, 0);
-  analogWrite(RIGHT_MOTOR_PWM, 0);
+
+  serial_commands.AddCommand(&cmd_recv_speed);
 }
 
 void loop()
 {
-  read_counts(RIGHT_MOTOR, &rightMotorCPS);
-  read_counts(LEFT_MOTOR, &rightMotorCPS);
+  serial_commands.ReadSerial();
+  read_speeds(RIGHT_MOTOR, &rightMotorCPS);
+  read_speeds(LEFT_MOTOR, &leftMotorCPS);
 
   leftMotorSpeed = ((double) leftMotorCPS/TICKS_PER_REV) * M_PI * WHEEL_DIAMETER;
   rightMotorSpeed = ((double) rightMotorCPS/TICKS_PER_REV) * M_PI * WHEEL_DIAMETER;
   
-  //leftMotorPID.Compute();
-  //rightMotorPID.Compute();
-
-  //analogWrite(LEFT_MOTOR_PWM, leftMotorPWM);
-  //analogWrite(RIGHT_MOTOR_PWM, rightMotorPWM);
+  leftMotorPID.Compute();
+  rightMotorPID.Compute();
+  
+  set_speed(RIGHT_MOTOR, rightMotorPWM);
+  set_speed(LEFT_MOTOR, leftMotorPWM);
+  Serial.print(leftMotorPWM);
+  Serial.print(" ");
+  Serial.print(rightMotorPWM);
+  Serial.print(" ");
   Serial.print(leftMotorSpeed);
   Serial.print(" ");
   Serial.println(rightMotorSpeed);
   delay(100);
 }
+
 
 // TODO: move this to comms library
 // TODO: Maybe this shouldn't be void? Unsure.
