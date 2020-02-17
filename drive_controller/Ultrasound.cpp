@@ -20,7 +20,7 @@ Ultrasound::Ultrasound(int trigPin, int echoPin, int pulseWidth, int pulseSchedu
 // Minimum trigger pulse width for the HC-SR04 is 10 us. This system
 // delivers a 50 uS pulse.
 // --------------------------
-private void Ultrasound::trigger_pulse(){
+static void Ultrasound::trigger_pulse(){
     if (!(--_trigger_time_count))  {                                 
         // Time out - Initiate trigger pulse
         _trigger_time_count = _pulse_schedule; // Reload
@@ -51,7 +51,7 @@ private void Ultrasound::trigger_pulse(){
 // Note: this routine does not handle the case where the timer
 //       counter overflows which will result in the occassional error.
 // --------------------------
-private void Ultrasound::echo_interrupt()
+static void Ultrasound::echo_interrupt()
 {
   switch (digitalRead(echoPin))                     // Test to see if the signal is high or low
   {

@@ -19,12 +19,14 @@ class Ultrasound
   private:
     int _trigPin;
     int _echoPin;
-    int _pulseWidth
+    int _pulseWidth;
     volatile long _echo_start = 0;
     volatile long _echo_end = 0;
     volatile long _echo_duration = 0;                      // Duration - difference between end and start
     volatile int _trigger_time_count = 0;                  // Count down counter to trigger pulse time
     int _trigger_state = 0;
+    static void trigger_pulse();
+    static void echo_interrupt();
 };
 
 #endif
