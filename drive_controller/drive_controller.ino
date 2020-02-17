@@ -1,6 +1,7 @@
 #include <PID_v1.h>
 #include <Wire.h>
 #include <SerialCommands.h>
+#include "Ultrasound.h"
 
 // TODO: refactor this into an enum
 #define LEFT_MOTOR 0
@@ -77,7 +78,7 @@ void set_speed(int motor, double speed)
   uint8_t pinA = motor ? RIGHT_MOTOR_INA : LEFT_MOTOR_INA;
   uint8_t pinB = motor ? RIGHT_MOTOR_INB : LEFT_MOTOR_INB;
   uint8_t pinPWM = motor ? RIGHT_MOTOR_PWM : LEFT_MOTOR_PWM;
-  
+
   if(speed > 0)
   {
     digitalWrite(pinA, HIGH);

@@ -131,6 +131,9 @@ dmypy.json
 # emacs backups
 *~
 
+# vscode artifacts
+.vscode/
+
 # arduino build objects
 *.elf
 *.hex
