@@ -1,7 +1,6 @@
 #include <PID_v1.h>
 #include <Wire.h>
 #include <SerialCommands.h>
-#include "Ultrasound.h"
 
 // TODO: refactor this into an enum
 #define LEFT_MOTOR 0
@@ -51,7 +50,7 @@ PID rightMotorPID(&rightMotorSpeed, &rightMotorPWM, &rightMotorSetpoint, rightKp
 
 // TODO maybe move to comms library
 char serial_command_buffer[64];
-SerialCommands serial_commands(&Serial, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
+SerialCommands serial_commands(&Serial, serial_command_buffer, sizeof(serial_command_buffer), "!", " ");
 void recv_speed(SerialCommands* sender)
 {
   char *arg;
@@ -71,6 +70,43 @@ void recv_speed(SerialCommands* sender)
   }
 }
 SerialCommand cmd_recv_speed("SPEED", recv_speed);
+
+void resp_count(SerialCommands* sender)
+{
+  char *arg;
+  uint8_t side;
+  int32_i2c_t count;
+  
+  arg = sender->Next();
+  if (arg != NULL) {
+    side = atoi(arg);
+  }
+  else {// TODO: Add error handling
+  }
+
+  read_counts(side, &count.ival);
+  sender->GetSerial()->write(count.buf, 4);
+}
+SerialCommand cmd_resp_count("GET_COUNT", resp_count);
+
+void resp_speed(SerialCommands* sender)
+{
+  char *arg;
+  uint8_t side;
+  int32_i2c_t count;
+  float_i2c_t speed;
+  arg = sender->Next();
+  if (arg != NULL) {
+    side = atoi(arg);
+  }
+  else {// TODO: Add error handling
+  }
+
+  read_speeds(side, &count.ival);
+  speed.fval = ((float) count.ival/TICKS_PER_REV) * M_PI * WHEEL_DIAMETER;
+  sender->GetSerial()->write(speed.buf, 4);
+}
+SerialCommand cmd_resp_speed("GET_SPEED", resp_speed);
 
 // TODO Move to actuator state library
 void set_speed(int motor, double speed)
@@ -147,7 +183,6 @@ void loop()
   Serial.println(rightMotorSpeed);
   delay(100);
 }
-
 
 // TODO: move this to comms library
 // TODO: Maybe this shouldn't be void? Unsure.
