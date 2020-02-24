@@ -1,5 +1,5 @@
 #include "Ultrasound.h"
-#include <TimerOne.h>
+#include <Ewma.h>
 
 void trigger_pulse();
 void echo_interrupt_left();
@@ -18,13 +18,14 @@ int _echoPin3;
 int _pulseWidth;
 volatile long _echo_start_left;
 volatile long _echo_end_left;
-volatile long _echo_duration_left;
 volatile long _echo_start_center;
 volatile long _echo_end_center;
-volatile long _echo_duration_center;   
 volatile long _echo_start_right;
-volatile long _echo_end_right;
-volatile long _echo_duration_right;   
+volatile long _echo_end_right; 
+
+volatile Ewma leftFilter(0.5);
+volatile Ewma centerFilter(0.5);
+volatile Ewma rightFilter(0.5);
 
 // Class Constructor
 Ultrasound::Ultrasound(int trigPin1, int echoPin1, int trigPin2, int echoPin2, int trigPin3, int echoPin3) {
@@ -38,19 +39,39 @@ Ultrasound::Ultrasound(int trigPin1, int echoPin1, int trigPin2, int echoPin2, i
     _echoPin2 = echoPin2;
     _trigPin3 = trigPin3;
     _echoPin3 = echoPin3;
-    
-    _echo_duration_left = 0;
-    _echo_duration_center = 0;
-    _echo_duration_right = 0;
+
+    pinMode(trigPin1, OUTPUT);
+    digitalWrite(trigPin1, LOW);
+    pinMode(trigPin2, OUTPUT);
+    digitalWrite(trigPin2, LOW);
+    pinMode(trigPin3, OUTPUT);
+    digitalWrite(trigPin3, LOW);
+
+    pinMode(echoPin1, INPUT);
+    pinMode(echoPin2, INPUT);
+    pinMode(echoPin3, INPUT);
 
     pulse_schedule = pulseSchedule;
     trigger_time_count = pulse_schedule;
+    
+    timer_setup();
+    attachInterrupt(digitalPinToInterrupt(echoPin1), echo_interrupt_left, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(echoPin2), echo_interrupt_center, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(echoPin3), echo_interrupt_right, CHANGE);
+}
 
-    Timer1.initialize(pulseWidth);
-    Timer1.attachInterrupt(trigger_pulse, pulseWidth);
-    attachInterrupt(0, echo_interrupt_left, CHANGE);
-    attachInterrupt(1, echo_interrupt_center, CHANGE);
-    attachInterrupt(2, echo_interrupt_right, CHANGE);
+void timer_setup() {
+  // Write TOP:
+  TCB2.CCMP =  2500; // Overflow after 10 ms using the TCA clk 
+  TCB2.INTCTRL = TCB_CAPT_bm;
+  TCB2.CTRLB = TCB_CNTMODE_INT_gc; // Setup timer into periodic interupt mode
+  TCB2.CTRLA = TCB_ENABLE_bm | TCB_CLKSEL_CLKTCA_gc; // Enable counter Using the TCA clock
+}
+
+ISR(TCB2_INT_vect) {
+  trigger_pulse();
+  
+  TCB2.INTFLAGS = TCB_CAPT_bm;
 }
 
 // --------------------------
@@ -60,43 +81,21 @@ Ultrasound::Ultrasound(int trigPin1, int echoPin1, int trigPin2, int echoPin2, i
 // delivers a 50 uS pulse.
 // --------------------------
 void trigger_pulse() {
-  static int test = 0;
+  static int schedule = 0;
   
-  if ((test++) % 2){
+  if ((schedule++) == pulse_schedule){
     digitalWrite(_trigPin1, HIGH);
     digitalWrite(_trigPin2, HIGH);
     digitalWrite(_trigPin3, HIGH);
-  } else {
+  
+    delayMicroseconds(10);
+    
     digitalWrite(_trigPin1, LOW);
     digitalWrite(_trigPin2, LOW);
     digitalWrite(_trigPin3, LOW);
+
+    schedule = 0;
   }
-
-    /*if ((--trigger_time_count) <= 0)  {                                 
-        // Time out - Initiate trigger pulse
-        trigger_time_count = pulse_schedule; // Reload
-        trigger_state = 1;                   // Changing to state 1 initiates a pulse
-    }
-
-    switch (trigger_state) {
-    case 0: // Normal state does nothing
-        break;
-
-    case 1:                          // Initiate pulse
-        digitalWrite(_trigPin1, HIGH);
-        digitalWrite(_trigPin2, HIGH);
-        digitalWrite(_trigPin3, HIGH);
-        trigger_state = 2;
-        break;
-
-    case 2: // Complete the pulse
-    default:
-        digitalWrite(_trigPin1, LOW);
-        digitalWrite(_trigPin2, LOW);
-        digitalWrite(_trigPin3, LOW);
-        trigger_state = 0;                  // and return state to normal 0
-        break;
-    } */
 }
 
 // --------------------------
@@ -115,7 +114,7 @@ void echo_interrupt_left() {
       
     case LOW:
       _echo_end_left = micros();
-      _echo_duration_left = _echo_end_left - _echo_start_left;
+      leftFilter.filter((double)(_echo_end_left - _echo_start_left));
       break;
   }
 }
@@ -129,7 +128,7 @@ void echo_interrupt_center() {
       
     case LOW:
       _echo_end_center = micros();
-      _echo_duration_center = _echo_end_center - _echo_start_center;
+      centerFilter.filter((double)(_echo_end_center - _echo_start_center));
       break;
   }
 }
@@ -143,7 +142,7 @@ void echo_interrupt_right() {
       
     case LOW:
       _echo_end_right = micros();
-      _echo_duration_right = _echo_end_right - _echo_start_right;
+      rightFilter.filter((double)(_echo_end_right - _echo_start_right));
       break;
   }
 }
@@ -153,15 +152,15 @@ double Ultrasound::getDistance(int ultrasonicNum) {
 
     switch (ultrasonicNum) {
       case 1:
-        duration = _echo_duration_left;
+        duration = leftFilter.output;
         break;
         
       case 2:
-        duration = _echo_duration_center;
+        duration = centerFilter.output;
         break;
         
       case 3:
-        duration = _echo_duration_right;
+        duration = rightFilter.output;
         break;
         
       default:

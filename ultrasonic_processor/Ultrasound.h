@@ -5,8 +5,10 @@
 
 // Header file for Ultrasound.cpp
 
-#define DEFAULT_PULSEWIDTH 4000
-#define DEFAULT_PULSE_SCHEDULE 10          
+#define DEFAULT_PULSEWIDTH 50
+#define DEFAULT_PULSE_SCHEDULE 100        
+
+void timer_setup();
 
 class Ultrasound
 {
