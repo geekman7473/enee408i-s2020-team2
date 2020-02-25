@@ -13,11 +13,6 @@ const uint8_t REGISTER_DISTANCE_RIGHT = 0x11;
 
 uint8_t opcode;
 
-typedef union int32_i2c {
-  byte buf[4];
-  int32_t ival;
-} int32_i2c_t;
-
 typedef union float_i2c {
   byte buf[4];
   float fval;
@@ -30,7 +25,28 @@ void setup() {
 
   Wire.begin(I2C_ADDRESS);
   Wire.onRequest(requestEvent);
-  Wire.onReceive(receiveEvent);
+  //Wire.onReceive(receiveEvent);
+}
+
+void requestEvent()
+{
+  float_i2c_t distance;
+  
+  switch(opcode) {
+   case REGISTER_DISTANCE_LEFT:
+     distance.fval = ultrasound.getDistance(1);
+     break;
+
+   case REGISTER_DISTANCE_CENTER:
+     distance.fval = ultrasound.getDistance(2);
+     break;
+
+   case REGISTER_VELOCITY_LEFT:
+     distance.fval = ultrasound.getDistance(3);
+     break;
+  }
+
+  Wire.write(distance.buf, sizeof(float_i2c_t));
 }
 
 void loop() {
