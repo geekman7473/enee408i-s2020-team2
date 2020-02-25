@@ -29,6 +29,8 @@ typedef union float_i2c {
   float fval;
 } float_i2c_t;
 
+void proximity_override();
+
 const uint8_t REGISTER_COUNT_LEFT = 0x01;
 const uint8_t REGISTER_COUNT_RIGHT = 0x02;
 const uint8_t REGISTER_VELOCITY_LEFT = 0x11;
@@ -36,8 +38,12 @@ const uint8_t REGISTER_VELOCITY_RIGHT = 0x12;
 const uint8_t REGISTER_RESET_LEFT = 0x21;
 const uint8_t REGISTER_RESET_RIGHT = 0x22;
 const uint8_t REGISTER_RESET_BOTH = 0x23;
+const uint8_t REGISTER_DISTANCE_LEFT = 0x01;
+const uint8_t REGISTER_DISTANCE_CENTER = 0x02;
+const uint8_t REGISTER_DISTANCE_RIGHT = 0x11;
 
 const uint8_t ENCODER_SLAVE_ADDRESS = 0x42;
+const uint8_t ULTRASONIC_SLAVE_ADDRESS = 0x43;
 
 double leftMotorSetpoint, rightMotorSetpoint, leftMotorSpeed, rightMotorSpeed;
 int32_t leftMotorCount, rightMotorCount;
@@ -121,12 +127,14 @@ void setup()
   digitalWrite(RIGHT_MOTOR_INA, HIGH);
   digitalWrite(RIGHT_MOTOR_INB, LOW);
 
-  serial_commands.AddCommand(&cmd_recv_speed);
+  //serial_commands.AddCommand(&cmd_recv_speed);
 }
 
 void loop()
 {
-  serial_commands.ReadSerial();
+  proximity_override();
+
+  //serial_commands.ReadSerial();
   read_speeds(RIGHT_MOTOR, &rightMotorCPS);
   read_speeds(LEFT_MOTOR, &leftMotorCPS);
 
@@ -138,16 +146,95 @@ void loop()
   
   set_speed(RIGHT_MOTOR, rightMotorPWM);
   set_speed(LEFT_MOTOR, leftMotorPWM);
-  Serial.print(leftMotorPWM);
+  /*Serial.print(leftMotorPWM);
   Serial.print(" ");
   Serial.print(rightMotorPWM);
   Serial.print(" ");
   Serial.print(leftMotorSpeed);
   Serial.print(" ");
   Serial.println(rightMotorSpeed);
-  delay(100);
+  delay(100);*/
+  delay(10);
 }
 
+void proximity_override(){
+  float left_distance, center_distance, right_distance;
+  read_distance(1, &left_distance);
+  read_distance(2, &center_distance);
+  read_distance(3, &right_distance);
+  int left_prox = (left_distance < 8.0);
+  int center_prox = (center_distance < 8.0);
+  int right_prox = (right_distance < 8.0);
+
+  double right_speed_1, left_speed_1, right_speed_2, right_speed_2;
+  int delay_length_1, delay_length_2;
+  if (left_prox && center_prox && right_prox){
+    right_speed_1 = -100;
+    left_speed_1 = -100;
+    delay_length_1 = 1000;
+    right_speed_2 = -100;
+    left_speed_2 = 100;
+    delay_length_2 = 1000;
+  } else if (left_prox && center_prox && !right_prox){
+    right_speed_1 = 100;
+    left_speed_1 = -100;
+    delay_length_1 = 500;
+    right_speed_2 = 0;
+    left_speed_2 = 0;
+    delay_length_2 = 0;
+  } else if (left_prox && !center_prox && right_prox){
+    right_speed_1 = -100;
+    left_speed_1 = -100;
+    delay_length_1 = 800;
+    right_speed_2 = -100;
+    left_speed_2 = 100;
+    delay_length_2 = 500;
+  } else if (!left_prox && center_prox && right_prox){
+    right_speed_1 = -100;
+    left_speed_1 = 100;
+    delay_length_1 = 500;
+    right_speed_2 = 0;
+    left_speed_2 = 0;
+    delay_length_2 = 0;
+  } else if (left_prox && !center_prox && !right_prox){
+    right_speed_1 = -100;
+    left_speed_1 = -100;
+    delay_length_1 = 800;
+    right_speed_2 = 100;
+    left_speed_2 = -100;
+    delay_length_2 = 800;
+  } else if (!left_prox && center_prox && !right_prox){
+    right_speed_1 = -100;
+    left_speed_1 = -100;
+    delay_length_1 = 800;
+    right_speed_2 = 100;
+    left_speed_2 = -100;
+    delay_length_2 = 800;
+  } else if (!left_prox && !center_prox && right_prox){
+    right_speed_1 = -100;
+    left_speed_1 = -100;
+    delay_length_1 = 800;
+    right_speed_2 = 100;
+    left_speed_2 = -100;
+    delay_length_2 = 800;
+  }
+
+  if (left_prox || center_prox || right_prox) {
+    leftMotorPID.setMode(DIRECT);
+    rightMotorPID.setMode(DIRECT);
+
+    rightMotorPID.
+    set_speed(RIGHT_MOTOR, right_speed_1);
+    set_speed(LEFT_MOTOR, left_speed_1);
+    delay(delay_length_1);
+    set_speed(RIGHT_MOTOR, right_speed_2);
+    set_speed(LEFT_MOTOR, left_speed_2);
+    delay(delay_length_2);
+
+    leftMotorPID.setMode(AUTOMATIC);
+    rightMotorPID.setMode(AUTOMATIC);
+  }
+}
 
 // TODO: move this to comms library
 // TODO: Maybe this shouldn't be void? Unsure.
@@ -193,4 +280,19 @@ void reset_counts(int motor, int32_t reset_value)
     Wire.write(payload.buf[i]);
   }
   Wire.endTransmission();
+}
+
+void read_distance(int sensor, int32_t* distance_cm)
+{
+  uint8_t reg = sensor == 1 ? REGISTER_DISTANCE_LEFT : (sensor == 2 ? REGISTER_DISTANCE_CENTER : REGISTER_DISTANCE_RIGHT);
+  Wire.beginTransmission(ULTRASONIC_SLAVE_ADDRESS);
+  Wire.write(reg);
+  Wire.endTransmission(false);
+  Wire.requestFrom(ULTRASONIC_SLAVE_ADDRESS, (uint8_t) 4);
+  float_i2c_t response;
+  for(int i = 0; i < 4; i++)
+  {
+    response.buf[i] = Wire.read();
+  }
+  *distance_cm = response.fval;
 }
