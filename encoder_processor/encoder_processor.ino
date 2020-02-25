@@ -133,7 +133,8 @@ void loop()
 
   //Serial.print("Left speed: ");Serial.print(speed_left.ival);
   //Serial.print("Right speed: ");Serial.println(speed_right.ival);
-  
+
+  Serial.println(test);
   delay(100);
 }
 
@@ -141,13 +142,14 @@ void loop()
 void speed_setup()
 {
   // Write TOP:
-  TCB2.CCMP =  2500; // Overflow after 10 ms using the TCA clk 
-  TCB2.INTCTRL = TCB_CAPT_bm;
-  TCB2.CTRLB = TCB_CNTMODE_INT_gc; // Setup timer into periodic interupt mode
-  TCB2.CTRLA = TCB_ENABLE_bm | TCB_CLKSEL_CLKTCA_gc; // Enable counter Using the TCA clock
+  TCB0.CCMP =  2500; // Overflow after 10 ms using the TCA clk 
+  TCB0.INTCTRL = TCB_CAPT_bm;
+  TCB0.CTRLB = TCB_CNTMODE_INT_gc; // Setup timer into periodic interupt mode
+  TCB0.CTRLA = TCB_ENABLE_bm | TCB_CLKSEL_CLKTCA_gc; // Enable counter Using the TCA clock
+  test++;
 }
 
-ISR(TCB2_INT_vect)
+ISR(TCB0_INT_vect)
 {
   int32_t curr_left = encoder_left.read();
   int32_t curr_right = encoder_right.read();
@@ -158,5 +160,5 @@ ISR(TCB2_INT_vect)
   prev_left = curr_left;
   prev_right = curr_right;
   
-  TCB2.INTFLAGS = TCB_CAPT_bm;
+  TCB3.INTFLAGS = TCB_CAPT_bm;
 }
