@@ -18,14 +18,20 @@ typedef union float_i2c {
   float fval;
 } float_i2c_t;
 
-Ultrasound ultrasound(20, 21, 9, 3, 10, 4);
+Ultrasound ultrasound(21, 20, 10, 9, 8, 7);
 
-void setup() {
+void setup()
+{
   Serial.begin(9600);
 
   Wire.begin(I2C_ADDRESS);
   Wire.onRequest(requestEvent);
-  //Wire.onReceive(receiveEvent);
+  Wire.onReceive(receiveEvent);
+}
+
+void receiveEvent(int bytes)
+{
+  opcode = Wire.read();
 }
 
 void requestEvent()
@@ -41,7 +47,7 @@ void requestEvent()
      distance.fval = ultrasound.getDistance(2);
      break;
 
-   case REGISTER_VELOCITY_LEFT:
+   case REGISTER_DISTANCE_RIGHT:
      distance.fval = ultrasound.getDistance(3);
      break;
   }
@@ -49,11 +55,12 @@ void requestEvent()
   Wire.write(distance.buf, sizeof(float_i2c_t));
 }
 
-void loop() {
+void loop()
+{
   Serial.print(ultrasound.getDistance(1));
   Serial.print(" ");
   Serial.print(ultrasound.getDistance(2));
   Serial.print(" ");
-  Serial.println(ultrasound.getDistance(3))
+  Serial.println(ultrasound.getDistance(3));
   delay(1000);
 }

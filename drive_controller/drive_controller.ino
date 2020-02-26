@@ -1,18 +1,17 @@
 #include <PID_v1.h>
 #include <Wire.h>
 #include <SerialCommands.h>
-#include "Ultrasound.h"
 
 // TODO: refactor this into an enum
 #define LEFT_MOTOR 0
 #define RIGHT_MOTOR 1
 
-#define RIGHT_MOTOR_PWM 5
-#define RIGHT_MOTOR_INA 3 
-#define RIGHT_MOTOR_INB 2
-#define LEFT_MOTOR_PWM 9
-#define LEFT_MOTOR_INA 8
-#define LEFT_MOTOR_INB 7
+#define LEFT_MOTOR_PWM 3
+#define LEFT_MOTOR_INA 2 
+#define LEFT_MOTOR_INB 4
+#define RIGHT_MOTOR_PWM 9
+#define RIGHT_MOTOR_INA 7
+#define RIGHT_MOTOR_INB 8
 
 #define TICKS_PER_REV 3200
 #define M_PI 3.14159265358979323846
@@ -49,7 +48,7 @@ double leftMotorSetpoint, rightMotorSetpoint, leftMotorSpeed, rightMotorSpeed;
 int32_t leftMotorCount, rightMotorCount;
 int32_t leftMotorCPS, rightMotorCPS;
 double leftMotorPWM, rightMotorPWM;
-double leftKp = 2, rightKp = 2, leftKi = 5, rightKi = 5, leftKd = 0, rightKd = 0;
+double leftKp = 5, rightKp = 5, leftKi = 1, rightKi = 1, leftKd = 0, rightKd = 0;
 
 PID leftMotorPID(&leftMotorSpeed, &leftMotorPWM, &leftMotorSetpoint, leftKp, leftKi, leftKd, DIRECT);
 PID rightMotorPID(&rightMotorSpeed, &rightMotorPWM, &rightMotorSetpoint, rightKp, rightKi, rightKd, DIRECT);
@@ -62,6 +61,7 @@ void recv_speed(SerialCommands* sender)
 {
   char *arg;
 
+  sender->GetSerial()->println("foo");
   arg = sender->Next();
   if (arg != NULL) {
     leftMotorSetpoint = atof(arg);
@@ -120,21 +120,24 @@ void setup()
   pinMode(LEFT_MOTOR_INB, OUTPUT);
   pinMode(LEFT_MOTOR_INB, OUTPUT);
 
-  leftMotorSetpoint = 10;
-  rightMotorSetpoint = 10;
+  leftMotorSetpoint = 7;
+  rightMotorSetpoint = 7;
   digitalWrite(LEFT_MOTOR_INA, HIGH);
   digitalWrite(LEFT_MOTOR_INB, LOW);
   digitalWrite(RIGHT_MOTOR_INA, HIGH);
   digitalWrite(RIGHT_MOTOR_INB, LOW);
 
-  //serial_commands.AddCommand(&cmd_recv_speed);
+  serial_commands.AddCommand(&cmd_recv_speed);
 }
 
 void loop()
 {
   proximity_override();
-
-  //serial_commands.ReadSerial();
+  
+  leftMotorSetpoint = 7;
+  rightMotorSetpoint = 7;
+  
+  serial_commands.ReadSerial();
   read_speeds(RIGHT_MOTOR, &rightMotorCPS);
   read_speeds(LEFT_MOTOR, &leftMotorCPS);
 
@@ -146,6 +149,7 @@ void loop()
   
   set_speed(RIGHT_MOTOR, rightMotorPWM);
   set_speed(LEFT_MOTOR, leftMotorPWM);
+  
   /*Serial.print(leftMotorPWM);
   Serial.print(" ");
   Serial.print(rightMotorPWM);
@@ -154,7 +158,7 @@ void loop()
   Serial.print(" ");
   Serial.println(rightMotorSpeed);
   delay(100);*/
-  delay(10);
+  delay(50);
 }
 
 void proximity_override(){
@@ -166,7 +170,7 @@ void proximity_override(){
   int center_prox = (center_distance < 8.0);
   int right_prox = (right_distance < 8.0);
 
-  double right_speed_1, left_speed_1, right_speed_2, right_speed_2;
+  double right_speed_1, left_speed_1, right_speed_2, left_speed_2;
   int delay_length_1, delay_length_2;
   if (left_prox && center_prox && right_prox){
     right_speed_1 = -100;
@@ -220,10 +224,9 @@ void proximity_override(){
   }
 
   if (left_prox || center_prox || right_prox) {
-    leftMotorPID.setMode(DIRECT);
-    rightMotorPID.setMode(DIRECT);
+    leftMotorPID.SetMode(DIRECT);
+    rightMotorPID.SetMode(DIRECT);
 
-    rightMotorPID.
     set_speed(RIGHT_MOTOR, right_speed_1);
     set_speed(LEFT_MOTOR, left_speed_1);
     delay(delay_length_1);
@@ -231,8 +234,8 @@ void proximity_override(){
     set_speed(LEFT_MOTOR, left_speed_2);
     delay(delay_length_2);
 
-    leftMotorPID.setMode(AUTOMATIC);
-    rightMotorPID.setMode(AUTOMATIC);
+    leftMotorPID.SetMode(AUTOMATIC);
+    rightMotorPID.SetMode(AUTOMATIC);
   }
 }
 
@@ -282,7 +285,7 @@ void reset_counts(int motor, int32_t reset_value)
   Wire.endTransmission();
 }
 
-void read_distance(int sensor, int32_t* distance_cm)
+void read_distance(int sensor, float* distance_cm)
 {
   uint8_t reg = sensor == 1 ? REGISTER_DISTANCE_LEFT : (sensor == 2 ? REGISTER_DISTANCE_CENTER : REGISTER_DISTANCE_RIGHT);
   Wire.beginTransmission(ULTRASONIC_SLAVE_ADDRESS);
