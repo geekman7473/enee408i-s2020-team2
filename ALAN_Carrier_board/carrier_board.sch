@@ -3637,85 +3637,6 @@ Resettable Fuse. Spark Fun Electronics SKU : COM-08357</description>
 </deviceset>
 </devicesets>
 </library>
-<library name="con-molex" urn="urn:adsk.eagle:library:165">
-<description>&lt;b&gt;Molex Connectors&lt;/b&gt;&lt;p&gt;
-&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
-<packages>
-<package name="KK-156-4" urn="urn:adsk.eagle:footprint:8078404/1" library_version="4">
-<description>&lt;b&gt;KK® 396 Header, Vertical, Friction Lock, 4 Circuits, Tin (Sn) Plating&lt;/b&gt;&lt;p&gt;&lt;a href =http://www.molex.com/pdm_docs/sd/026604040_sd.pdf&gt;Datasheet &lt;/a&gt;</description>
-<wire x1="7.77" y1="4.95" x2="5.97" y2="4.95" width="0.2032" layer="21"/>
-<wire x1="5.97" y1="4.95" x2="-5.945" y2="4.95" width="0.2032" layer="21"/>
-<wire x1="-5.945" y1="4.95" x2="-7.745" y2="4.95" width="0.2032" layer="21"/>
-<wire x1="-7.745" y1="4.95" x2="-7.745" y2="-4.825" width="0.2032" layer="21"/>
-<wire x1="-7.745" y1="-4.825" x2="7.77" y2="-4.825" width="0.2032" layer="21"/>
-<wire x1="7.77" y1="-4.825" x2="7.77" y2="4.95" width="0.2032" layer="21"/>
-<wire x1="-5.945" y1="2.525" x2="5.97" y2="2.525" width="0.2032" layer="21"/>
-<wire x1="5.97" y1="2.525" x2="5.97" y2="4.95" width="0.2032" layer="21"/>
-<wire x1="-5.945" y1="2.525" x2="-5.945" y2="4.95" width="0.2032" layer="21"/>
-<pad name="1" x="-5.94" y="0" drill="1.7" diameter="2.1844" shape="long" rot="R90"/>
-<pad name="2" x="-1.98" y="0" drill="1.7" diameter="2.1844" shape="long" rot="R90"/>
-<pad name="3" x="1.98" y="0" drill="1.7" diameter="2.1844" shape="long" rot="R90"/>
-<pad name="4" x="5.94" y="0" drill="1.7" diameter="2.1844" shape="long" rot="R90"/>
-<text x="-8.44" y="-4.445" size="1.27" layer="25" rot="R90">&gt;NAME</text>
-<text x="9.71" y="-4.445" size="1.27" layer="27" rot="R90">&gt;VALUE</text>
-</package>
-</packages>
-<packages3d>
-<package3d name="KK-156-4" urn="urn:adsk.eagle:package:8078802/1" type="box" library_version="4">
-<description>&lt;b&gt;KK® 396 Header, Vertical, Friction Lock, 4 Circuits, Tin (Sn) Plating&lt;/b&gt;&lt;p&gt;&lt;a href =http://www.molex.com/pdm_docs/sd/026604040_sd.pdf&gt;Datasheet &lt;/a&gt;</description>
-<packageinstances>
-<packageinstance name="KK-156-4"/>
-</packageinstances>
-</package3d>
-</packages3d>
-<symbols>
-<symbol name="MV" urn="urn:adsk.eagle:symbol:8078125/1" library_version="4">
-<wire x1="1.27" y1="0" x2="0" y2="0" width="0.6096" layer="94"/>
-<text x="2.54" y="-0.762" size="1.524" layer="95">&gt;NAME</text>
-<text x="-0.762" y="1.397" size="1.778" layer="96">&gt;VALUE</text>
-<pin name="S" x="-2.54" y="0" visible="off" length="short" direction="pas"/>
-</symbol>
-<symbol name="M" urn="urn:adsk.eagle:symbol:8078124/1" library_version="4">
-<wire x1="1.27" y1="0" x2="0" y2="0" width="0.6096" layer="94"/>
-<text x="2.54" y="-0.762" size="1.524" layer="95">&gt;NAME</text>
-<pin name="S" x="-2.54" y="0" visible="off" length="short" direction="pas"/>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="KK-156-4" urn="urn:adsk.eagle:component:8079130/2" prefix="X" uservalue="yes" library_version="4">
-<description>&lt;b&gt;KK 156 HEADER&lt;/b&gt;&lt;p&gt;
-Source: http://www.molex.com/pdm_docs/sd/026604100_sd.pdf</description>
-<gates>
-<gate name="-1" symbol="MV" x="0" y="0" addlevel="always" swaplevel="1"/>
-<gate name="-2" symbol="M" x="0" y="-2.54" addlevel="always" swaplevel="1"/>
-<gate name="-3" symbol="M" x="0" y="-5.08" addlevel="always" swaplevel="1"/>
-<gate name="-4" symbol="M" x="0" y="-7.62" addlevel="always" swaplevel="1"/>
-</gates>
-<devices>
-<device name="" package="KK-156-4">
-<connects>
-<connect gate="-1" pin="S" pad="1"/>
-<connect gate="-2" pin="S" pad="2"/>
-<connect gate="-3" pin="S" pad="3"/>
-<connect gate="-4" pin="S" pad="4"/>
-</connects>
-<package3dinstances>
-<package3dinstance package3d_urn="urn:adsk.eagle:package:8078802/1"/>
-</package3dinstances>
-<technologies>
-<technology name="">
-<attribute name="MF" value="MOLEX" constant="no"/>
-<attribute name="MPN" value="" constant="no"/>
-<attribute name="OC_FARNELL" value="unknown" constant="no"/>
-<attribute name="OC_NEWARK" value="unknown" constant="no"/>
-<attribute name="POPULARITY" value="0" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 </libraries>
 <attributes>
 </attributes>
@@ -3753,8 +3674,6 @@ Source: http://www.molex.com/pdm_docs/sd/026604100_sd.pdf</description>
 <part name="US_NANO_L" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X15" device="" package3d_urn="urn:adsk.eagle:package:22424/2"/>
 <part name="US_NANO_R" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X15" device="" package3d_urn="urn:adsk.eagle:package:22424/2"/>
 <part name="MOTOR_CONTROLLER" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X15" device="" package3d_urn="urn:adsk.eagle:package:22424/2"/>
-<part name="ENC_L" library="con-molex" library_urn="urn:adsk.eagle:library:165" deviceset="KK-156-4" device="" package3d_urn="urn:adsk.eagle:package:8078802/1"/>
-<part name="ENC_R" library="con-molex" library_urn="urn:adsk.eagle:library:165" deviceset="KK-156-4" device="" package3d_urn="urn:adsk.eagle:package:8078802/1"/>
 <part name="USL" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X4" device="/90" package3d_urn="urn:adsk.eagle:package:22404/2"/>
 <part name="USR" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X4" device="/90" package3d_urn="urn:adsk.eagle:package:22404/2"/>
 <part name="USC" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X4" device="/90" package3d_urn="urn:adsk.eagle:package:22404/2"/>
@@ -3766,6 +3685,9 @@ Source: http://www.molex.com/pdm_docs/sd/026604100_sd.pdf</description>
 <part name="ENC_NANO_R_OUT" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X15" device="" package3d_urn="urn:adsk.eagle:package:22424/2"/>
 <part name="US_NANO_L_OUT" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X15" device="" package3d_urn="urn:adsk.eagle:package:22424/2"/>
 <part name="US_NANO_R_OUT" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X15" device="" package3d_urn="urn:adsk.eagle:package:22424/2"/>
+<part name="DC-POWER_OUT" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X8" device="" package3d_urn="urn:adsk.eagle:package:22409/2"/>
+<part name="ENC_LEFT" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X4" device="/90" package3d_urn="urn:adsk.eagle:package:22404/2"/>
+<part name="ENC_RIGHT" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X4" device="/90" package3d_urn="urn:adsk.eagle:package:22404/2"/>
 </parts>
 <sheets>
 <sheet>
@@ -3816,6 +3738,10 @@ Source: http://www.molex.com/pdm_docs/sd/026604100_sd.pdf</description>
 <instance part="DC-PWM" gate="G$1" x="43.18" y="132.08" smashed="yes" rot="R90">
 <attribute name="NAME" x="27.305" y="125.73" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="63.5" y="125.73" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="DC-POWER_OUT" gate="A" x="25.4" y="-7.62" smashed="yes" rot="R270">
+<attribute name="NAME" x="38.735" y="-1.27" size="1.778" layer="95" rot="R270"/>
+<attribute name="VALUE" x="12.7" y="-1.27" size="1.778" layer="96" rot="R270"/>
 </instance>
 </instances>
 <busses>
@@ -3870,13 +3796,6 @@ Source: http://www.molex.com/pdm_docs/sd/026604100_sd.pdf</description>
 <pinref part="DC-COMMS" gate="G$1" pin="12"/>
 <wire x1="104.14" y1="129.54" x2="104.14" y2="114.3" width="0.1524" layer="91"/>
 <label x="104.14" y="114.3" size="1.778" layer="95" rot="R90"/>
-</segment>
-</net>
-<net name="VCC" class="0">
-<segment>
-<pinref part="POWER" gate="A" pin="8"/>
-<wire x1="35.56" y1="10.16" x2="35.56" y2="-5.08" width="0.1524" layer="91"/>
-<label x="35.56" y="-2.54" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="1INB" class="0">
@@ -3955,408 +3874,403 @@ Source: http://www.molex.com/pdm_docs/sd/026604100_sd.pdf</description>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="1"/>
 <wire x1="132.08" y1="76.2" x2="121.92" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="121.92" y1="76.2" x2="121.92" y2="83.82" width="0.1524" layer="91"/>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="2"/>
+<wire x1="190.5" y1="76.2" x2="200.66" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="121.92" y1="83.82" x2="200.66" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="200.66" y1="83.82" x2="200.66" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="DC-D22" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="3"/>
-<wire x1="132.08" y1="73.66" x2="121.92" y2="73.66" width="0.1524" layer="91"/>
-<label x="116.84" y="73.66" size="1.778" layer="95"/>
-</segment>
 <segment>
 <pinref part="GPIO_D22-D53_OUT" gate="A" pin="3"/>
 <wire x1="182.88" y1="73.66" x2="172.72" y2="73.66" width="0.1524" layer="91"/>
 <label x="167.64" y="73.66" size="1.778" layer="95"/>
 </segment>
-</net>
-<net name="DC-D24" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="5"/>
-<wire x1="132.08" y1="71.12" x2="121.92" y2="71.12" width="0.1524" layer="91"/>
-<label x="116.84" y="71.12" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="5"/>
-<wire x1="182.88" y1="71.12" x2="172.72" y2="71.12" width="0.1524" layer="91"/>
-<label x="167.64" y="71.12" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DC-D26" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="7"/>
-<wire x1="132.08" y1="68.58" x2="121.92" y2="68.58" width="0.1524" layer="91"/>
-<label x="116.84" y="68.58" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="7"/>
-<wire x1="182.88" y1="68.58" x2="172.72" y2="68.58" width="0.1524" layer="91"/>
-<label x="167.64" y="68.58" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DC-D28" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="9"/>
-<wire x1="132.08" y1="66.04" x2="121.92" y2="66.04" width="0.1524" layer="91"/>
-<label x="116.84" y="66.04" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="9"/>
-<wire x1="182.88" y1="66.04" x2="172.72" y2="66.04" width="0.1524" layer="91"/>
-<label x="167.64" y="66.04" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DC-D30" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="11"/>
-<wire x1="132.08" y1="63.5" x2="121.92" y2="63.5" width="0.1524" layer="91"/>
-<label x="116.84" y="63.5" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="11"/>
-<wire x1="182.88" y1="63.5" x2="172.72" y2="63.5" width="0.1524" layer="91"/>
-<label x="167.64" y="63.5" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DC-D32" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="13"/>
-<wire x1="132.08" y1="60.96" x2="121.92" y2="60.96" width="0.1524" layer="91"/>
-<label x="116.84" y="60.96" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="13"/>
-<wire x1="182.88" y1="60.96" x2="172.72" y2="60.96" width="0.1524" layer="91"/>
-<label x="167.64" y="60.96" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DC-D34" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="15"/>
-<wire x1="132.08" y1="58.42" x2="121.92" y2="58.42" width="0.1524" layer="91"/>
-<label x="116.84" y="58.42" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="15"/>
-<wire x1="182.88" y1="58.42" x2="172.72" y2="58.42" width="0.1524" layer="91"/>
-<label x="167.64" y="58.42" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DC-D36" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="17"/>
-<wire x1="132.08" y1="55.88" x2="121.92" y2="55.88" width="0.1524" layer="91"/>
-<label x="116.84" y="55.88" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="17"/>
-<wire x1="182.88" y1="55.88" x2="172.72" y2="55.88" width="0.1524" layer="91"/>
-<label x="167.64" y="55.88" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DC-D38" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="19"/>
-<wire x1="132.08" y1="53.34" x2="121.92" y2="53.34" width="0.1524" layer="91"/>
-<label x="116.84" y="53.34" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="19"/>
-<wire x1="182.88" y1="53.34" x2="172.72" y2="53.34" width="0.1524" layer="91"/>
-<label x="167.64" y="53.34" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DC-D40" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="21"/>
-<wire x1="132.08" y1="50.8" x2="121.92" y2="50.8" width="0.1524" layer="91"/>
-<label x="116.84" y="50.8" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="21"/>
-<wire x1="182.88" y1="50.8" x2="172.72" y2="50.8" width="0.1524" layer="91"/>
-<label x="167.64" y="50.8" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DC-D42" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="23"/>
-<wire x1="132.08" y1="48.26" x2="121.92" y2="48.26" width="0.1524" layer="91"/>
-<label x="116.84" y="48.26" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="23"/>
-<wire x1="182.88" y1="48.26" x2="172.72" y2="48.26" width="0.1524" layer="91"/>
-<label x="167.64" y="48.26" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DC-D44" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="25"/>
-<wire x1="132.08" y1="45.72" x2="121.92" y2="45.72" width="0.1524" layer="91"/>
-<label x="116.84" y="45.72" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="25"/>
-<wire x1="182.88" y1="45.72" x2="172.72" y2="45.72" width="0.1524" layer="91"/>
-<label x="167.64" y="45.72" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DC-D46" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="27"/>
-<wire x1="132.08" y1="43.18" x2="121.92" y2="43.18" width="0.1524" layer="91"/>
-<label x="116.84" y="43.18" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="27"/>
-<wire x1="182.88" y1="43.18" x2="172.72" y2="43.18" width="0.1524" layer="91"/>
-<label x="167.64" y="43.18" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DC-D48" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="29"/>
-<wire x1="132.08" y1="40.64" x2="121.92" y2="40.64" width="0.1524" layer="91"/>
-<label x="116.84" y="40.64" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="29"/>
-<wire x1="182.88" y1="40.64" x2="172.72" y2="40.64" width="0.1524" layer="91"/>
-<label x="167.64" y="40.64" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DC-D50" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="31"/>
-<wire x1="132.08" y1="38.1" x2="121.92" y2="38.1" width="0.1524" layer="91"/>
-<label x="116.84" y="38.1" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="31"/>
-<wire x1="182.88" y1="38.1" x2="172.72" y2="38.1" width="0.1524" layer="91"/>
-<label x="167.64" y="38.1" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DC-D52" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="33"/>
-<wire x1="132.08" y1="35.56" x2="121.92" y2="35.56" width="0.1524" layer="91"/>
-<label x="116.84" y="35.56" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="33"/>
-<wire x1="182.88" y1="35.56" x2="172.72" y2="35.56" width="0.1524" layer="91"/>
-<label x="167.64" y="35.56" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="N$25" class="0">
-<segment>
-<pinref part="GPIO_D22-D53" gate="A" pin="2"/>
-<wire x1="139.7" y1="76.2" x2="149.86" y2="76.2" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="DC-D23" class="0">
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="4"/>
 <wire x1="139.7" y1="73.66" x2="149.86" y2="73.66" width="0.1524" layer="91"/>
 <label x="147.32" y="73.66" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="4"/>
-<wire x1="190.5" y1="73.66" x2="200.66" y2="73.66" width="0.1524" layer="91"/>
-<label x="198.12" y="73.66" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="DC-D25" class="0">
+<net name="DC-D24" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="5"/>
+<wire x1="182.88" y1="71.12" x2="172.72" y2="71.12" width="0.1524" layer="91"/>
+<label x="167.64" y="71.12" size="1.778" layer="95"/>
+</segment>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="6"/>
 <wire x1="139.7" y1="71.12" x2="149.86" y2="71.12" width="0.1524" layer="91"/>
 <label x="147.32" y="71.12" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="6"/>
-<wire x1="190.5" y1="71.12" x2="200.66" y2="71.12" width="0.1524" layer="91"/>
-<label x="198.12" y="71.12" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="DC-D27" class="0">
+<net name="DC-D26" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="7"/>
+<wire x1="182.88" y1="68.58" x2="172.72" y2="68.58" width="0.1524" layer="91"/>
+<label x="167.64" y="68.58" size="1.778" layer="95"/>
+</segment>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="8"/>
 <wire x1="139.7" y1="68.58" x2="149.86" y2="68.58" width="0.1524" layer="91"/>
 <label x="147.32" y="68.58" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="8"/>
-<wire x1="190.5" y1="68.58" x2="200.66" y2="68.58" width="0.1524" layer="91"/>
-<label x="198.12" y="68.58" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="DC-D29" class="0">
+<net name="DC-D28" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="9"/>
+<wire x1="182.88" y1="66.04" x2="172.72" y2="66.04" width="0.1524" layer="91"/>
+<label x="167.64" y="66.04" size="1.778" layer="95"/>
+</segment>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="10"/>
 <wire x1="139.7" y1="66.04" x2="149.86" y2="66.04" width="0.1524" layer="91"/>
 <label x="147.32" y="66.04" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="10"/>
-<wire x1="190.5" y1="66.04" x2="200.66" y2="66.04" width="0.1524" layer="91"/>
-<label x="198.12" y="66.04" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="DC-D31" class="0">
+<net name="DC-D30" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="11"/>
+<wire x1="182.88" y1="63.5" x2="172.72" y2="63.5" width="0.1524" layer="91"/>
+<label x="167.64" y="63.5" size="1.778" layer="95"/>
+</segment>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="12"/>
 <wire x1="139.7" y1="63.5" x2="149.86" y2="63.5" width="0.1524" layer="91"/>
 <label x="147.32" y="63.5" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="12"/>
-<wire x1="190.5" y1="63.5" x2="200.66" y2="63.5" width="0.1524" layer="91"/>
-<label x="198.12" y="63.5" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="DC-D33" class="0">
+<net name="DC-D32" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="13"/>
+<wire x1="182.88" y1="60.96" x2="172.72" y2="60.96" width="0.1524" layer="91"/>
+<label x="167.64" y="60.96" size="1.778" layer="95"/>
+</segment>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="14"/>
 <wire x1="139.7" y1="60.96" x2="149.86" y2="60.96" width="0.1524" layer="91"/>
 <label x="147.32" y="60.96" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="14"/>
-<wire x1="190.5" y1="60.96" x2="200.66" y2="60.96" width="0.1524" layer="91"/>
-<label x="198.12" y="60.96" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="DC-D35" class="0">
+<net name="DC-D34" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="15"/>
+<wire x1="182.88" y1="58.42" x2="172.72" y2="58.42" width="0.1524" layer="91"/>
+<label x="167.64" y="58.42" size="1.778" layer="95"/>
+</segment>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="16"/>
 <wire x1="139.7" y1="58.42" x2="149.86" y2="58.42" width="0.1524" layer="91"/>
 <label x="147.32" y="58.42" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="16"/>
-<wire x1="190.5" y1="58.42" x2="200.66" y2="58.42" width="0.1524" layer="91"/>
-<label x="198.12" y="58.42" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="DC-D37" class="0">
+<net name="DC-D36" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="17"/>
+<wire x1="182.88" y1="55.88" x2="172.72" y2="55.88" width="0.1524" layer="91"/>
+<label x="167.64" y="55.88" size="1.778" layer="95"/>
+</segment>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="18"/>
 <wire x1="139.7" y1="55.88" x2="149.86" y2="55.88" width="0.1524" layer="91"/>
 <label x="147.32" y="55.88" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="18"/>
-<wire x1="190.5" y1="55.88" x2="200.66" y2="55.88" width="0.1524" layer="91"/>
-<label x="198.12" y="55.88" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="DC-D39" class="0">
+<net name="DC-D38" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="19"/>
+<wire x1="182.88" y1="53.34" x2="172.72" y2="53.34" width="0.1524" layer="91"/>
+<label x="167.64" y="53.34" size="1.778" layer="95"/>
+</segment>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="20"/>
 <wire x1="139.7" y1="53.34" x2="149.86" y2="53.34" width="0.1524" layer="91"/>
 <label x="147.32" y="53.34" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="20"/>
-<wire x1="190.5" y1="53.34" x2="200.66" y2="53.34" width="0.1524" layer="91"/>
-<label x="198.12" y="53.34" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="DC-D41" class="0">
+<net name="DC-D40" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="21"/>
+<wire x1="182.88" y1="50.8" x2="172.72" y2="50.8" width="0.1524" layer="91"/>
+<label x="167.64" y="50.8" size="1.778" layer="95"/>
+</segment>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="22"/>
 <wire x1="139.7" y1="50.8" x2="149.86" y2="50.8" width="0.1524" layer="91"/>
 <label x="147.32" y="50.8" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="22"/>
-<wire x1="190.5" y1="50.8" x2="200.66" y2="50.8" width="0.1524" layer="91"/>
-<label x="198.12" y="50.8" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="DC-D43" class="0">
+<net name="DC-D42" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="23"/>
+<wire x1="182.88" y1="48.26" x2="172.72" y2="48.26" width="0.1524" layer="91"/>
+<label x="167.64" y="48.26" size="1.778" layer="95"/>
+</segment>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="24"/>
 <wire x1="139.7" y1="48.26" x2="149.86" y2="48.26" width="0.1524" layer="91"/>
 <label x="147.32" y="48.26" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="24"/>
-<wire x1="190.5" y1="48.26" x2="200.66" y2="48.26" width="0.1524" layer="91"/>
-<label x="198.12" y="48.26" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="DC-D45" class="0">
+<net name="DC-D44" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="25"/>
+<wire x1="182.88" y1="45.72" x2="172.72" y2="45.72" width="0.1524" layer="91"/>
+<label x="167.64" y="45.72" size="1.778" layer="95"/>
+</segment>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="26"/>
 <wire x1="139.7" y1="45.72" x2="149.86" y2="45.72" width="0.1524" layer="91"/>
 <label x="147.32" y="45.72" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="26"/>
-<wire x1="190.5" y1="45.72" x2="200.66" y2="45.72" width="0.1524" layer="91"/>
-<label x="198.12" y="45.72" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="DC-D47" class="0">
+<net name="DC-D46" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="27"/>
+<wire x1="182.88" y1="43.18" x2="172.72" y2="43.18" width="0.1524" layer="91"/>
+<label x="167.64" y="43.18" size="1.778" layer="95"/>
+</segment>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="28"/>
 <wire x1="139.7" y1="43.18" x2="149.86" y2="43.18" width="0.1524" layer="91"/>
 <label x="147.32" y="43.18" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="28"/>
-<wire x1="190.5" y1="43.18" x2="200.66" y2="43.18" width="0.1524" layer="91"/>
-<label x="198.12" y="43.18" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="DC-D49" class="0">
+<net name="DC-D48" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="29"/>
+<wire x1="182.88" y1="40.64" x2="172.72" y2="40.64" width="0.1524" layer="91"/>
+<label x="167.64" y="40.64" size="1.778" layer="95"/>
+</segment>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="30"/>
 <wire x1="139.7" y1="40.64" x2="149.86" y2="40.64" width="0.1524" layer="91"/>
 <label x="147.32" y="40.64" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="30"/>
-<wire x1="190.5" y1="40.64" x2="200.66" y2="40.64" width="0.1524" layer="91"/>
-<label x="198.12" y="40.64" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="DC-D51" class="0">
+<net name="DC-D50" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="31"/>
+<wire x1="182.88" y1="38.1" x2="172.72" y2="38.1" width="0.1524" layer="91"/>
+<label x="167.64" y="38.1" size="1.778" layer="95"/>
+</segment>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="32"/>
 <wire x1="139.7" y1="38.1" x2="149.86" y2="38.1" width="0.1524" layer="91"/>
 <label x="147.32" y="38.1" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="32"/>
-<wire x1="190.5" y1="38.1" x2="200.66" y2="38.1" width="0.1524" layer="91"/>
-<label x="198.12" y="38.1" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="DC-D53" class="0">
+<net name="DC-D52" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="33"/>
+<wire x1="182.88" y1="35.56" x2="172.72" y2="35.56" width="0.1524" layer="91"/>
+<label x="167.64" y="35.56" size="1.778" layer="95"/>
+</segment>
 <segment>
 <pinref part="GPIO_D22-D53" gate="A" pin="34"/>
 <wire x1="139.7" y1="35.56" x2="149.86" y2="35.56" width="0.1524" layer="91"/>
 <label x="147.32" y="35.56" size="1.778" layer="95"/>
 </segment>
+</net>
+<net name="DC-D23" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="4"/>
+<wire x1="190.5" y1="73.66" x2="200.66" y2="73.66" width="0.1524" layer="91"/>
+<label x="198.12" y="73.66" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="3"/>
+<wire x1="132.08" y1="73.66" x2="121.92" y2="73.66" width="0.1524" layer="91"/>
+<label x="116.84" y="73.66" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DC-D25" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="6"/>
+<wire x1="190.5" y1="71.12" x2="200.66" y2="71.12" width="0.1524" layer="91"/>
+<label x="198.12" y="71.12" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="5"/>
+<wire x1="132.08" y1="71.12" x2="121.92" y2="71.12" width="0.1524" layer="91"/>
+<label x="116.84" y="71.12" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DC-D27" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="8"/>
+<wire x1="190.5" y1="68.58" x2="200.66" y2="68.58" width="0.1524" layer="91"/>
+<label x="198.12" y="68.58" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="7"/>
+<wire x1="132.08" y1="68.58" x2="121.92" y2="68.58" width="0.1524" layer="91"/>
+<label x="116.84" y="68.58" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DC-D29" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="10"/>
+<wire x1="190.5" y1="66.04" x2="200.66" y2="66.04" width="0.1524" layer="91"/>
+<label x="198.12" y="66.04" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="9"/>
+<wire x1="132.08" y1="66.04" x2="121.92" y2="66.04" width="0.1524" layer="91"/>
+<label x="116.84" y="66.04" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DC-D31" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="12"/>
+<wire x1="190.5" y1="63.5" x2="200.66" y2="63.5" width="0.1524" layer="91"/>
+<label x="198.12" y="63.5" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="11"/>
+<wire x1="132.08" y1="63.5" x2="121.92" y2="63.5" width="0.1524" layer="91"/>
+<label x="116.84" y="63.5" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DC-D33" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="14"/>
+<wire x1="190.5" y1="60.96" x2="200.66" y2="60.96" width="0.1524" layer="91"/>
+<label x="198.12" y="60.96" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="13"/>
+<wire x1="132.08" y1="60.96" x2="121.92" y2="60.96" width="0.1524" layer="91"/>
+<label x="116.84" y="60.96" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DC-D35" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="16"/>
+<wire x1="190.5" y1="58.42" x2="200.66" y2="58.42" width="0.1524" layer="91"/>
+<label x="198.12" y="58.42" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="15"/>
+<wire x1="132.08" y1="58.42" x2="121.92" y2="58.42" width="0.1524" layer="91"/>
+<label x="116.84" y="58.42" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DC-D37" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="18"/>
+<wire x1="190.5" y1="55.88" x2="200.66" y2="55.88" width="0.1524" layer="91"/>
+<label x="198.12" y="55.88" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="17"/>
+<wire x1="132.08" y1="55.88" x2="121.92" y2="55.88" width="0.1524" layer="91"/>
+<label x="116.84" y="55.88" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DC-D39" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="20"/>
+<wire x1="190.5" y1="53.34" x2="200.66" y2="53.34" width="0.1524" layer="91"/>
+<label x="198.12" y="53.34" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="19"/>
+<wire x1="132.08" y1="53.34" x2="121.92" y2="53.34" width="0.1524" layer="91"/>
+<label x="116.84" y="53.34" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DC-D41" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="22"/>
+<wire x1="190.5" y1="50.8" x2="200.66" y2="50.8" width="0.1524" layer="91"/>
+<label x="198.12" y="50.8" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="21"/>
+<wire x1="132.08" y1="50.8" x2="121.92" y2="50.8" width="0.1524" layer="91"/>
+<label x="116.84" y="50.8" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DC-D43" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="24"/>
+<wire x1="190.5" y1="48.26" x2="200.66" y2="48.26" width="0.1524" layer="91"/>
+<label x="198.12" y="48.26" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="23"/>
+<wire x1="132.08" y1="48.26" x2="121.92" y2="48.26" width="0.1524" layer="91"/>
+<label x="116.84" y="48.26" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DC-D45" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="26"/>
+<wire x1="190.5" y1="45.72" x2="200.66" y2="45.72" width="0.1524" layer="91"/>
+<label x="198.12" y="45.72" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="25"/>
+<wire x1="132.08" y1="45.72" x2="121.92" y2="45.72" width="0.1524" layer="91"/>
+<label x="116.84" y="45.72" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DC-D47" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="28"/>
+<wire x1="190.5" y1="43.18" x2="200.66" y2="43.18" width="0.1524" layer="91"/>
+<label x="198.12" y="43.18" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="27"/>
+<wire x1="132.08" y1="43.18" x2="121.92" y2="43.18" width="0.1524" layer="91"/>
+<label x="116.84" y="43.18" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DC-D49" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="30"/>
+<wire x1="190.5" y1="40.64" x2="200.66" y2="40.64" width="0.1524" layer="91"/>
+<label x="198.12" y="40.64" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="29"/>
+<wire x1="132.08" y1="40.64" x2="121.92" y2="40.64" width="0.1524" layer="91"/>
+<label x="116.84" y="40.64" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DC-D51" class="0">
+<segment>
+<pinref part="GPIO_D22-D53_OUT" gate="A" pin="32"/>
+<wire x1="190.5" y1="38.1" x2="200.66" y2="38.1" width="0.1524" layer="91"/>
+<label x="198.12" y="38.1" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="31"/>
+<wire x1="132.08" y1="38.1" x2="121.92" y2="38.1" width="0.1524" layer="91"/>
+<label x="116.84" y="38.1" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DC-D53" class="0">
 <segment>
 <pinref part="GPIO_D22-D53_OUT" gate="A" pin="34"/>
 <wire x1="190.5" y1="35.56" x2="200.66" y2="35.56" width="0.1524" layer="91"/>
 <label x="198.12" y="35.56" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="GPIO_D22-D53" gate="A" pin="33"/>
+<wire x1="132.08" y1="35.56" x2="121.92" y2="35.56" width="0.1524" layer="91"/>
+<label x="116.84" y="35.56" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$7" class="0">
 <segment>
 <pinref part="GPIO_D22-D53_OUT" gate="A" pin="1"/>
 <wire x1="182.88" y1="76.2" x2="172.72" y2="76.2" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$9" class="0">
-<segment>
-<pinref part="GPIO_D22-D53_OUT" gate="A" pin="2"/>
-<wire x1="190.5" y1="76.2" x2="200.66" y2="76.2" width="0.1524" layer="91"/>
+<pinref part="GPIO_D22-D53" gate="A" pin="2"/>
+<wire x1="139.7" y1="76.2" x2="172.72" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="DC-A7" class="0">
@@ -4707,6 +4621,11 @@ Source: http://www.molex.com/pdm_docs/sd/026604100_sd.pdf</description>
 <wire x1="22.86" y1="88.9" x2="22.86" y2="106.68" width="0.1524" layer="91"/>
 <label x="22.86" y="93.98" size="1.778" layer="95" rot="R90"/>
 </segment>
+<segment>
+<pinref part="DC-PWM" gate="G$1" pin="1"/>
+<wire x1="30.48" y1="129.54" x2="30.48" y2="114.3" width="0.1524" layer="91"/>
+<label x="30.48" y="114.3" size="1.778" layer="95" rot="R90"/>
+</segment>
 </net>
 <net name="DC-PWM12" class="0">
 <segment>
@@ -4744,11 +4663,61 @@ Source: http://www.molex.com/pdm_docs/sd/026604100_sd.pdf</description>
 <label x="38.1" y="114.3" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
-<net name="DC-PWM14" class="0">
+<net name="N$52" class="0">
 <segment>
-<pinref part="DC-PWM" gate="G$1" pin="1"/>
-<wire x1="30.48" y1="129.54" x2="30.48" y2="114.3" width="0.1524" layer="91"/>
-<label x="30.48" y="114.3" size="1.778" layer="95" rot="R90"/>
+<pinref part="POWER" gate="A" pin="7"/>
+<wire x1="33.02" y1="10.16" x2="33.02" y2="-5.08" width="0.1524" layer="91"/>
+<pinref part="DC-POWER_OUT" gate="A" pin="2"/>
+</segment>
+</net>
+<net name="N$53" class="0">
+<segment>
+<pinref part="POWER" gate="A" pin="6"/>
+<wire x1="30.48" y1="10.16" x2="30.48" y2="-5.08" width="0.1524" layer="91"/>
+<pinref part="DC-POWER_OUT" gate="A" pin="3"/>
+</segment>
+</net>
+<net name="N$54" class="0">
+<segment>
+<pinref part="POWER" gate="A" pin="5"/>
+<wire x1="27.94" y1="10.16" x2="27.94" y2="-5.08" width="0.1524" layer="91"/>
+<pinref part="DC-POWER_OUT" gate="A" pin="4"/>
+</segment>
+</net>
+<net name="N$55" class="0">
+<segment>
+<pinref part="POWER" gate="A" pin="4"/>
+<wire x1="25.4" y1="10.16" x2="25.4" y2="-5.08" width="0.1524" layer="91"/>
+<pinref part="DC-POWER_OUT" gate="A" pin="5"/>
+</segment>
+</net>
+<net name="N$56" class="0">
+<segment>
+<pinref part="POWER" gate="A" pin="3"/>
+<wire x1="22.86" y1="10.16" x2="22.86" y2="-5.08" width="0.1524" layer="91"/>
+<pinref part="DC-POWER_OUT" gate="A" pin="6"/>
+</segment>
+</net>
+<net name="N$57" class="0">
+<segment>
+<pinref part="POWER" gate="A" pin="2"/>
+<wire x1="20.32" y1="10.16" x2="20.32" y2="-5.08" width="0.1524" layer="91"/>
+<pinref part="DC-POWER_OUT" gate="A" pin="7"/>
+</segment>
+</net>
+<net name="VCC" class="0">
+<segment>
+<pinref part="POWER" gate="A" pin="1"/>
+<wire x1="17.78" y1="10.16" x2="17.78" y2="-5.08" width="0.1524" layer="91"/>
+<pinref part="DC-POWER_OUT" gate="A" pin="8"/>
+<label x="17.78" y="0" size="1.778" layer="95" rot="R90"/>
+</segment>
+</net>
+<net name="N$9" class="0">
+<segment>
+<pinref part="POWER" gate="A" pin="8"/>
+<pinref part="DC-POWER_OUT" gate="A" pin="1"/>
+<wire x1="35.56" y1="10.16" x2="35.56" y2="-5.08" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
@@ -4766,32 +4735,6 @@ Source: http://www.molex.com/pdm_docs/sd/026604100_sd.pdf</description>
 <attribute name="NAME" x="41.91" y="32.385" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="41.91" y="76.2" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="ENC_L" gate="-1" x="20.32" y="116.84" smashed="yes">
-<attribute name="NAME" x="22.86" y="116.078" size="1.524" layer="95"/>
-<attribute name="VALUE" x="19.558" y="118.237" size="1.778" layer="96"/>
-</instance>
-<instance part="ENC_L" gate="-2" x="20.32" y="114.3" smashed="yes">
-<attribute name="NAME" x="22.86" y="113.538" size="1.524" layer="95"/>
-</instance>
-<instance part="ENC_L" gate="-3" x="20.32" y="111.76" smashed="yes">
-<attribute name="NAME" x="22.86" y="110.998" size="1.524" layer="95"/>
-</instance>
-<instance part="ENC_L" gate="-4" x="20.32" y="109.22" smashed="yes">
-<attribute name="NAME" x="22.86" y="108.458" size="1.524" layer="95"/>
-</instance>
-<instance part="ENC_R" gate="-1" x="20.32" y="101.6" smashed="yes">
-<attribute name="NAME" x="22.86" y="100.838" size="1.524" layer="95"/>
-<attribute name="VALUE" x="19.558" y="102.997" size="1.778" layer="96"/>
-</instance>
-<instance part="ENC_R" gate="-2" x="20.32" y="99.06" smashed="yes">
-<attribute name="NAME" x="22.86" y="98.298" size="1.524" layer="95"/>
-</instance>
-<instance part="ENC_R" gate="-3" x="20.32" y="96.52" smashed="yes">
-<attribute name="NAME" x="22.86" y="95.758" size="1.524" layer="95"/>
-</instance>
-<instance part="ENC_R" gate="-4" x="20.32" y="93.98" smashed="yes">
-<attribute name="NAME" x="22.86" y="93.218" size="1.524" layer="95"/>
-</instance>
 <instance part="ENC_NANO_L_OUT" gate="A" x="-7.62" y="53.34" smashed="yes">
 <attribute name="NAME" x="-13.97" y="74.295" size="1.778" layer="95"/>
 <attribute name="VALUE" x="-13.97" y="30.48" size="1.778" layer="96"/>
@@ -4799,6 +4742,14 @@ Source: http://www.molex.com/pdm_docs/sd/026604100_sd.pdf</description>
 <instance part="ENC_NANO_R_OUT" gate="A" x="68.58" y="53.34" smashed="yes" rot="R180">
 <attribute name="NAME" x="74.93" y="32.385" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="74.93" y="76.2" size="1.778" layer="96" rot="R180"/>
+</instance>
+<instance part="ENC_LEFT" gate="A" x="20.32" y="111.76" smashed="yes">
+<attribute name="NAME" x="13.97" y="120.015" size="1.778" layer="95"/>
+<attribute name="VALUE" x="13.97" y="104.14" size="1.778" layer="96"/>
+</instance>
+<instance part="ENC_RIGHT" gate="A" x="20.32" y="96.52" smashed="yes">
+<attribute name="NAME" x="13.97" y="104.775" size="1.778" layer="95"/>
+<attribute name="VALUE" x="13.97" y="88.9" size="1.778" layer="96"/>
 </instance>
 </instances>
 <busses>
@@ -4834,14 +4785,14 @@ Source: http://www.molex.com/pdm_docs/sd/026604100_sd.pdf</description>
 <pinref part="ENC_NANO_R_OUT" gate="A" pin="4"/>
 </segment>
 <segment>
-<pinref part="ENC_L" gate="-1" pin="S"/>
 <wire x1="17.78" y1="116.84" x2="5.08" y2="116.84" width="0.1524" layer="91"/>
 <label x="5.08" y="116.84" size="1.778" layer="95"/>
+<pinref part="ENC_LEFT" gate="A" pin="1"/>
 </segment>
 <segment>
-<pinref part="ENC_R" gate="-1" pin="S"/>
 <wire x1="17.78" y1="101.6" x2="5.08" y2="101.6" width="0.1524" layer="91"/>
 <label x="5.08" y="101.6" size="1.778" layer="95"/>
+<pinref part="ENC_RIGHT" gate="A" pin="1"/>
 </segment>
 </net>
 <net name="VCC" class="0">
@@ -4852,21 +4803,21 @@ Source: http://www.molex.com/pdm_docs/sd/026604100_sd.pdf</description>
 <pinref part="ENC_NANO_L_OUT" gate="A" pin="15"/>
 </segment>
 <segment>
-<pinref part="ENC_L" gate="-2" pin="S"/>
 <wire x1="17.78" y1="114.3" x2="5.08" y2="114.3" width="0.1524" layer="91"/>
 <label x="5.08" y="114.3" size="1.778" layer="95"/>
+<pinref part="ENC_LEFT" gate="A" pin="2"/>
 </segment>
 <segment>
-<pinref part="ENC_R" gate="-2" pin="S"/>
 <wire x1="17.78" y1="99.06" x2="5.08" y2="99.06" width="0.1524" layer="91"/>
 <label x="5.08" y="99.06" size="1.778" layer="95"/>
+<pinref part="ENC_RIGHT" gate="A" pin="2"/>
 </segment>
 </net>
 <net name="ENC_LA" class="0">
 <segment>
-<pinref part="ENC_L" gate="-3" pin="S"/>
 <wire x1="17.78" y1="111.76" x2="5.08" y2="111.76" width="0.1524" layer="91"/>
 <label x="5.08" y="111.76" size="1.778" layer="95"/>
+<pinref part="ENC_LEFT" gate="A" pin="3"/>
 </segment>
 <segment>
 <pinref part="ENC_NANO_R" gate="A" pin="7"/>
@@ -4877,9 +4828,9 @@ Source: http://www.molex.com/pdm_docs/sd/026604100_sd.pdf</description>
 </net>
 <net name="ENC_LB" class="0">
 <segment>
-<pinref part="ENC_L" gate="-4" pin="S"/>
 <wire x1="17.78" y1="109.22" x2="5.08" y2="109.22" width="0.1524" layer="91"/>
 <label x="5.08" y="109.22" size="1.778" layer="95"/>
+<pinref part="ENC_LEFT" gate="A" pin="4"/>
 </segment>
 <segment>
 <pinref part="ENC_NANO_R" gate="A" pin="8"/>
@@ -4890,9 +4841,9 @@ Source: http://www.molex.com/pdm_docs/sd/026604100_sd.pdf</description>
 </net>
 <net name="ENC_RA" class="0">
 <segment>
-<pinref part="ENC_R" gate="-3" pin="S"/>
 <wire x1="17.78" y1="96.52" x2="5.08" y2="96.52" width="0.1524" layer="91"/>
 <label x="5.08" y="96.52" size="1.778" layer="95"/>
+<pinref part="ENC_RIGHT" gate="A" pin="3"/>
 </segment>
 <segment>
 <pinref part="ENC_NANO_R" gate="A" pin="9"/>
@@ -4903,9 +4854,9 @@ Source: http://www.molex.com/pdm_docs/sd/026604100_sd.pdf</description>
 </net>
 <net name="ENC_RB" class="0">
 <segment>
-<pinref part="ENC_R" gate="-4" pin="S"/>
 <wire x1="17.78" y1="93.98" x2="5.08" y2="93.98" width="0.1524" layer="91"/>
 <label x="5.08" y="93.98" size="1.778" layer="95"/>
+<pinref part="ENC_RIGHT" gate="A" pin="4"/>
 </segment>
 <segment>
 <pinref part="ENC_NANO_R" gate="A" pin="10"/>
