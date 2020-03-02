@@ -157,7 +157,7 @@ void loop()
   Serial.print(leftMotorSpeed);
   Serial.print(" ");
   Serial.println(rightMotorSpeed);
-  delay(100);*/
+  delay(50);*/
   delay(50);
 }
 
@@ -173,53 +173,53 @@ void proximity_override(){
   double right_speed_1, left_speed_1, right_speed_2, left_speed_2;
   int delay_length_1, delay_length_2;
   if (left_prox && center_prox && right_prox){
-    right_speed_1 = -100;
-    left_speed_1 = -100;
-    delay_length_1 = 1000;
-    right_speed_2 = -100;
-    left_speed_2 = 100;
-    delay_length_2 = 1000;
+    right_speed_1 = -50;
+    left_speed_1 = -50;
+    delay_length_1 = 500;
+    right_speed_2 = -50;
+    left_speed_2 = 50;
+    delay_length_2 = 500;
   } else if (left_prox && center_prox && !right_prox){
-    right_speed_1 = 100;
-    left_speed_1 = -100;
+    right_speed_1 = 50;
+    left_speed_1 = -50;
     delay_length_1 = 500;
     right_speed_2 = 0;
     left_speed_2 = 0;
     delay_length_2 = 0;
   } else if (left_prox && !center_prox && right_prox){
-    right_speed_1 = -100;
-    left_speed_1 = -100;
+    right_speed_1 = -50;
+    left_speed_1 = -50;
     delay_length_1 = 800;
-    right_speed_2 = -100;
-    left_speed_2 = 100;
+    right_speed_2 = -50;
+    left_speed_2 = 50;
     delay_length_2 = 500;
   } else if (!left_prox && center_prox && right_prox){
-    right_speed_1 = -100;
-    left_speed_1 = 100;
+    right_speed_1 = -50;
+    left_speed_1 = 50;
     delay_length_1 = 500;
     right_speed_2 = 0;
     left_speed_2 = 0;
     delay_length_2 = 0;
   } else if (left_prox && !center_prox && !right_prox){
-    right_speed_1 = -100;
-    left_speed_1 = -100;
+    right_speed_1 = -50;
+    left_speed_1 = -50;
     delay_length_1 = 800;
-    right_speed_2 = 100;
-    left_speed_2 = -100;
+    right_speed_2 = 50;
+    left_speed_2 = -50;
     delay_length_2 = 800;
   } else if (!left_prox && center_prox && !right_prox){
-    right_speed_1 = -100;
-    left_speed_1 = -100;
+    right_speed_1 = -50;
+    left_speed_1 = -50;
     delay_length_1 = 800;
-    right_speed_2 = 100;
-    left_speed_2 = -100;
+    right_speed_2 = 50;
+    left_speed_2 = -50;
     delay_length_2 = 800;
   } else if (!left_prox && !center_prox && right_prox){
-    right_speed_1 = -100;
-    left_speed_1 = -100;
+    right_speed_1 = -50;
+    left_speed_1 = -50;
     delay_length_1 = 800;
-    right_speed_2 = 100;
-    left_speed_2 = -100;
+    right_speed_2 = 50;
+    left_speed_2 = -50;
     delay_length_2 = 800;
   }
 
