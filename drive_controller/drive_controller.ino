@@ -125,8 +125,8 @@ void setup()
   pinMode(LEFT_MOTOR_INB, OUTPUT);
   pinMode(LEFT_MOTOR_INB, OUTPUT);
 
-  leftMotorSetpoint = 7;
-  rightMotorSetpoint = 7;
+  leftMotorSetpoint = 0;
+  rightMotorSetpoint = 0;
   digitalWrite(LEFT_MOTOR_INA, HIGH);
   digitalWrite(LEFT_MOTOR_INB, LOW);
   digitalWrite(RIGHT_MOTOR_INA, HIGH);
@@ -139,9 +139,7 @@ void loop()
 {
   //proximity_override();
   
-  leftMotorSetpoint = 15;
-  rightMotorSetpoint = 15;
-  
+
   serial_commands.ReadSerial();
   read_speeds(RIGHT_MOTOR, &rightMotorCPS);
   read_speeds(LEFT_MOTOR, &leftMotorCPS);
