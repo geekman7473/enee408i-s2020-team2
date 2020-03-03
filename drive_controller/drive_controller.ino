@@ -162,7 +162,6 @@ void loop()
   Serial.print(" ");
   Serial.println(rightMotorSpeed);
   delay(100);
-  delay(50);
 }
 
 void proximity_override(){
