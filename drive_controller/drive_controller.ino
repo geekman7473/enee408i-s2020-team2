@@ -13,7 +13,8 @@
 #define RIGHT_MOTOR_INA 7
 #define RIGHT_MOTOR_INB 8
 
-#define TICKS_PER_REV 3200
+#define TICKS_PER_REV_RIGHT 3200
+#define TICKS_PER_REV_LEFT  4480
 #define M_PI 3.14159265358979323846
 #define WHEEL_DIAMETER 6.0
 
@@ -136,17 +137,17 @@ void setup()
 
 void loop()
 {
-  proximity_override();
+  //proximity_override();
   
-  leftMotorSetpoint = 7;
-  rightMotorSetpoint = 7;
+  leftMotorSetpoint = 15;
+  rightMotorSetpoint = 15;
   
   serial_commands.ReadSerial();
   read_speeds(RIGHT_MOTOR, &rightMotorCPS);
   read_speeds(LEFT_MOTOR, &leftMotorCPS);
 
-  leftMotorSpeed = ((double) leftMotorCPS/TICKS_PER_REV) * M_PI * WHEEL_DIAMETER;
-  rightMotorSpeed = ((double) rightMotorCPS/TICKS_PER_REV) * M_PI * WHEEL_DIAMETER;
+  leftMotorSpeed = ((double) leftMotorCPS/TICKS_PER_REV_LEFT) * M_PI * WHEEL_DIAMETER;
+  rightMotorSpeed = ((double) rightMotorCPS/TICKS_PER_REV_RIGHT) * M_PI * WHEEL_DIAMETER;
   
   leftMotorPID.Compute();
   rightMotorPID.Compute();
@@ -154,9 +155,9 @@ void loop()
   set_speed(RIGHT_MOTOR, rightMotorPWM);
   set_speed(LEFT_MOTOR, leftMotorPWM);
   
-  Serial.print(leftMotorPWM);
+  Serial.print(leftMotorCPS);
   Serial.print(" ");
-  Serial.print(rightMotorPWM);
+  Serial.print(rightMotorCPS);
   Serial.print(" ");
   Serial.print(leftMotorSpeed);
   Serial.print(" ");
@@ -164,7 +165,8 @@ void loop()
   delay(100);
 }
 
-void proximity_override(){
+void proximity_override()
+{
   float left_distance, center_distance, right_distance;
   read_distance(1, &left_distance);
   read_distance(2, &center_distance);
