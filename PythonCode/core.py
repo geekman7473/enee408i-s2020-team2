@@ -10,8 +10,8 @@ if __name__ == '__main__':
 
     allThreads = []
     allThreads.append(cvTh)
+ #   cvQueue.put('calibrate')
     cvQueue.put('personFollow')
-
     for thread in allThreads:
         thread.start()
 
