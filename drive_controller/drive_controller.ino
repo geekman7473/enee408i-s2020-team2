@@ -48,7 +48,7 @@ double leftMotorSetpoint, rightMotorSetpoint, leftMotorSpeed, rightMotorSpeed;
 int32_t leftMotorCount, rightMotorCount;
 int32_t leftMotorCPS, rightMotorCPS;
 double leftMotorPWM, rightMotorPWM;
-double leftKp = 5, rightKp = 5, leftKi = 1, rightKi = 1, leftKd = 0, rightKd = 0;
+double leftKp = 3, rightKp = 3, leftKi = 7, rightKi = 7, leftKd = 0, rightKd = 0;
 
 PID leftMotorPID(&leftMotorSpeed, &leftMotorPWM, &leftMotorSetpoint, leftKp, leftKi, leftKd, DIRECT);
 PID rightMotorPID(&rightMotorSpeed, &rightMotorPWM, &rightMotorSetpoint, rightKp, rightKi, rightKd, DIRECT);
@@ -101,7 +101,7 @@ void set_speed(int motor, double speed)
     digitalWrite(pinA, LOW);
     digitalWrite(pinB, LOW);
   }
-  analogWrite(pinPWM, speed);
+  analogWrite(pinPWM, abs(speed));
 }
 
 void setup()
@@ -111,8 +111,12 @@ void setup()
 
   Wire.begin();
   Serial.begin(9600);
+  
   leftMotorPID.SetMode(AUTOMATIC);
   rightMotorPID.SetMode(AUTOMATIC);
+  leftMotorPID.SetOutputLimits(-255, 255);
+  rightMotorPID.SetOutputLimits(-255, 255);
+  
   pinMode(RIGHT_MOTOR_INA, OUTPUT);
   pinMode(RIGHT_MOTOR_INB, OUTPUT);
   pinMode(RIGHT_MOTOR_PWM, OUTPUT);
@@ -150,14 +154,14 @@ void loop()
   set_speed(RIGHT_MOTOR, rightMotorPWM);
   set_speed(LEFT_MOTOR, leftMotorPWM);
   
-  /*Serial.print(leftMotorPWM);
+  Serial.print(leftMotorPWM);
   Serial.print(" ");
   Serial.print(rightMotorPWM);
   Serial.print(" ");
   Serial.print(leftMotorSpeed);
   Serial.print(" ");
   Serial.println(rightMotorSpeed);
-  delay(100);*/
+  delay(100);
   delay(50);
 }
 
@@ -173,53 +177,53 @@ void proximity_override(){
   double right_speed_1, left_speed_1, right_speed_2, left_speed_2;
   int delay_length_1, delay_length_2;
   if (left_prox && center_prox && right_prox){
-    right_speed_1 = -100;
-    left_speed_1 = -100;
+    right_speed_1 = -20;
+    left_speed_1 = -20;
     delay_length_1 = 1000;
-    right_speed_2 = -100;
-    left_speed_2 = 100;
+    right_speed_2 = -20;
+    left_speed_2 = 20;
     delay_length_2 = 1000;
   } else if (left_prox && center_prox && !right_prox){
-    right_speed_1 = 100;
-    left_speed_1 = -100;
+    right_speed_1 = 20;
+    left_speed_1 = -20;
     delay_length_1 = 500;
     right_speed_2 = 0;
     left_speed_2 = 0;
     delay_length_2 = 0;
   } else if (left_prox && !center_prox && right_prox){
-    right_speed_1 = -100;
-    left_speed_1 = -100;
+    right_speed_1 = -20;
+    left_speed_1 = -20;
     delay_length_1 = 800;
-    right_speed_2 = -100;
-    left_speed_2 = 100;
+    right_speed_2 = -20;
+    left_speed_2 = 20;
     delay_length_2 = 500;
   } else if (!left_prox && center_prox && right_prox){
-    right_speed_1 = -100;
-    left_speed_1 = 100;
+    right_speed_1 = -20;
+    left_speed_1 = 20;
     delay_length_1 = 500;
     right_speed_2 = 0;
     left_speed_2 = 0;
     delay_length_2 = 0;
   } else if (left_prox && !center_prox && !right_prox){
-    right_speed_1 = -100;
-    left_speed_1 = -100;
+    right_speed_1 = -20;
+    left_speed_1 = -20;
     delay_length_1 = 800;
-    right_speed_2 = 100;
-    left_speed_2 = -100;
+    right_speed_2 = 20;
+    left_speed_2 = -20;
     delay_length_2 = 800;
   } else if (!left_prox && center_prox && !right_prox){
-    right_speed_1 = -100;
-    left_speed_1 = -100;
+    right_speed_1 = -20;
+    left_speed_1 = -20;
     delay_length_1 = 800;
-    right_speed_2 = 100;
-    left_speed_2 = -100;
+    right_speed_2 = 20;
+    left_speed_2 = -20;
     delay_length_2 = 800;
   } else if (!left_prox && !center_prox && right_prox){
-    right_speed_1 = -100;
-    left_speed_1 = -100;
+    right_speed_1 = -20;
+    left_speed_1 = -20;
     delay_length_1 = 800;
-    right_speed_2 = 100;
-    left_speed_2 = -100;
+    right_speed_2 = 20;
+    left_speed_2 = -20;
     delay_length_2 = 800;
   }
 
@@ -227,6 +231,13 @@ void proximity_override(){
     leftMotorPID.SetMode(DIRECT);
     rightMotorPID.SetMode(DIRECT);
 
+    Serial.print(right_speed_1);
+    Serial.print(" ");
+    Serial.print(left_speed_1);
+    Serial.print(" ");
+    Serial.print(right_speed_2);
+    Serial.print(" ");
+    Serial.println(left_speed_2);
     set_speed(RIGHT_MOTOR, right_speed_1);
     set_speed(LEFT_MOTOR, left_speed_1);
     delay(delay_length_1);
