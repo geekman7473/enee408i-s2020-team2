@@ -5,8 +5,8 @@
 const uint8_t I2C_ADDRESS = 0x42;
 const uint8_t ENC_1_PIN1 = 4;
 const uint8_t ENC_1_PIN2 = 5;
-const uint8_t ENC_2_PIN1 = 6;
-const uint8_t ENC_2_PIN2 = 7;
+const uint8_t ENC_2_PIN1 = 2;
+const uint8_t ENC_2_PIN2 = 3;
 
 // TODO: Move this to comms library.
 const uint8_t REGISTER_COUNT_LEFT = 0x01;
@@ -19,8 +19,8 @@ const uint8_t REGISTER_RESET_BOTH = 0x23;
 
 uint8_t opcode;
 
-Encoder encoder_left(ENC_1_PIN1, ENC_1_PIN2);
-Encoder encoder_right(ENC_2_PIN1, ENC_2_PIN2);
+Encoder encoder_right(ENC_1_PIN1, ENC_1_PIN2);
+Encoder encoder_left(ENC_2_PIN2, ENC_2_PIN1);
 
 typedef union int32_i2c {
   byte buf[4];
