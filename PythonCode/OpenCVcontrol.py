@@ -7,12 +7,6 @@ import numpy as np
 import time
 import json
 
-class Direction(Enum):
-    FORWARD = 1
-    BACKWARD = 2
-    LEFT = 3
-    RIGHT = 4
-    STOP = 5
 
 def run(cvQueue: Queue):
     cvObject = OpenCVController()
@@ -48,17 +42,6 @@ class OpenCVController:
     
         #the tracking function setup part should be here
         print("start following")
-                    if not objectSeenOnce:
-                    else:  # Object has been seen before
-                        if leftOrRightLastSent is not None:
-                            if leftOrRightLastSent == Direction.RIGHT:
-                                self.send_serial_command(Direction.RIGHT, b'r');
-                                commandString = "SEARCHING: GO RIGHT"
-                            elif leftOrRightLastSent == Direction.LEFT:
-                                self.send_serial_command(Direction.LEFT, b'l');
-                                commandString = "SEARCHING: GO LEFT"
-                        else:  # variable hasn't been set yet (seems unlikely), but default to left
-                            self.send_serial_command(Direction.LEFT, b'l');
         
         #the loop below should be the main loop for tracking
         while True:
