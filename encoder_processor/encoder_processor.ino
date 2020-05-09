@@ -5,8 +5,8 @@
 const uint8_t I2C_ADDRESS = 0x42;
 const uint8_t ENC_1_PIN1 = 4;
 const uint8_t ENC_1_PIN2 = 5;
-const uint8_t ENC_2_PIN1 = 2;
-const uint8_t ENC_2_PIN2 = 3;
+const uint8_t ENC_2_PIN1 = 6;
+const uint8_t ENC_2_PIN2 = 7;
 
 // TODO: Move this to comms library.
 const uint8_t REGISTER_COUNT_LEFT = 0x01;
@@ -125,7 +125,7 @@ void loop()
   //Serial.print(encoder_left.read());
   //Serial.print(" ");
   //Serial.println(encoder_right.read());
-   //Serial.print(test);
+  //Serial.print(test);
   /*
 
   delay(10);
@@ -152,8 +152,8 @@ ISR(TCB2_INT_vect)
   int32_t curr_left = encoder_left.read();
   int32_t curr_right = encoder_right.read();
   // Measure ticks per second:
-  speed_left.ival = -(curr_left - prev_left) * 100;
-  speed_right.ival= -(curr_right - prev_right) * 100;
+  speed_left.ival = (curr_left - prev_left) * 100;
+  speed_right.ival= (curr_right - prev_right) * 100;
   
   prev_left = curr_left;
   prev_right = curr_right;

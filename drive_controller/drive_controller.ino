@@ -6,9 +6,9 @@
 #define LEFT_MOTOR 0
 #define RIGHT_MOTOR 1
 
-#define LEFT_MOTOR_PWM 3
-#define LEFT_MOTOR_INA 2 
-#define LEFT_MOTOR_INB 4
+#define LEFT_MOTOR_PWM 5
+#define LEFT_MOTOR_INA 3 
+#define LEFT_MOTOR_INB 2
 #define RIGHT_MOTOR_PWM 9
 #define RIGHT_MOTOR_INA 7
 #define RIGHT_MOTOR_INB 8
@@ -111,7 +111,7 @@ void resp_speed(SerialCommands* sender)
   }
 
   read_speeds(side, &count.ival);
-  speed.fval = ((float) count.ival/TICKS_PER_REV) * M_PI * WHEEL_DIAMETER;
+  speed.fval = ((float) count.ival/(side ? TICKS_PER_REV_RIGHT : TICKS_PER_REV_LEFT)) * M_PI * WHEEL_DIAMETER;
   sender->GetSerial()->write(speed.buf, 4);
 }
 SerialCommand cmd_resp_speed("GET_SPEED", resp_speed);
@@ -170,6 +170,8 @@ void setup()
   digitalWrite(RIGHT_MOTOR_INB, LOW);
 
   serial_commands.AddCommand(&cmd_recv_speed);
+  serial_commands.AddCommand(&cmd_resp_count);
+  serial_commands.AddCommand(&cmd_resp_speed);
 }
 
 void loop()
@@ -190,13 +192,13 @@ void loop()
   set_speed(RIGHT_MOTOR, rightMotorPWM);
   set_speed(LEFT_MOTOR, leftMotorPWM);
   
-  Serial.print(leftMotorCPS);
-  Serial.print(" ");
-  Serial.print(rightMotorCPS);
-  Serial.print(" ");
-  Serial.print(leftMotorSpeed);
-  Serial.print(" ");
-  Serial.println(rightMotorSpeed);
+  // Serial.print(leftMotorCPS);
+  // Serial.print(" ");
+  // Serial.print(rightMotorCPS);
+  // Serial.print(" ");
+  // Serial.print(leftMotorSpeed);
+  // Serial.print(" ");
+  // Serial.println(rightMotorSpeed);
   delay(100);
 }
 
