@@ -137,3 +137,13 @@ dmypy.json
 # arduino build objects
 *.elf
 *.hex
+
+*.avi
+*.mp4
+*.mpeg
+*.jpg
+*.png
+*.ini
+# tracking
+pytorch_objectdetecttrack/__pycache__
+*.weights
