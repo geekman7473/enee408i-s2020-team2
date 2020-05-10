@@ -125,23 +125,23 @@ void loop()
   //Serial.print(encoder_left.read());
   //Serial.print(" ");
   //Serial.println(encoder_right.read());
-  //Serial.print(test);
+  Serial.println(test);
   /*
 
   delay(10);
   */
 
-  //Serial.print("Left speed: ");Serial.print(speed_left.ival);
-  //Serial.print("Right speed: ");Serial.println(speed_right.ival);
+  Serial.print("Left speed: ");Serial.print(speed_left.ival);
+  Serial.print("Right speed: ");Serial.println(speed_right.ival);
   
-  delay(100);
+  delay(1000);
 }
 
 // Speed timer setup:
 void speed_setup()
 {
   // Write TOP:
-  TCB2.CCMP =  2500; // Overflow after 10 ms using the TCA clk 
+  TCB2.CCMP =  25000; // Overflow after 10 ms using the TCA clk 
   TCB2.INTCTRL = TCB_CAPT_bm;
   TCB2.CTRLB = TCB_CNTMODE_INT_gc; // Setup timer into periodic interupt mode
   TCB2.CTRLA = TCB_ENABLE_bm | TCB_CLKSEL_CLKTCA_gc; // Enable counter Using the TCA clock
@@ -152,11 +152,11 @@ ISR(TCB2_INT_vect)
   int32_t curr_left = encoder_left.read();
   int32_t curr_right = encoder_right.read();
   // Measure ticks per second:
-  speed_left.ival = (curr_left - prev_left) * 100;
-  speed_right.ival= (curr_right - prev_right) * 100;
+  speed_left.ival = (curr_left - prev_left) * 10;
+  speed_right.ival= (curr_right - prev_right) * 10;
   
   prev_left = curr_left;
   prev_right = curr_right;
-  
+  test++;
   TCB2.INTFLAGS = TCB_CAPT_bm;
 }
