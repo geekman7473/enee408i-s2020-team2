@@ -49,11 +49,18 @@ double leftMotorSetpoint, rightMotorSetpoint, leftMotorSpeed, rightMotorSpeed;
 int32_t leftMotorCount, rightMotorCount;
 int32_t leftMotorCPS, rightMotorCPS;
 double leftMotorPWM, rightMotorPWM;
-double leftKp = 3, rightKp = 3, leftKi = 7, rightKi = 7, leftKd = 0, rightKd = 0;
+double leftKp = 5, rightKp = 5, leftKi = .05, rightKi = .05, leftKd = 0, rightKd = 0;
 
 PID leftMotorPID(&leftMotorSpeed, &leftMotorPWM, &leftMotorSetpoint, leftKp, leftKi, leftKd, DIRECT);
 PID rightMotorPID(&rightMotorSpeed, &rightMotorPWM, &rightMotorSetpoint, rightKp, rightKi, rightKd, DIRECT);
 
+
+void cmd_unrecognized(SerialCommands* sender, const char* cmd)
+{
+	sender->GetSerial()->print("Unrecognized command [");
+	sender->GetSerial()->print(cmd);
+	sender->GetSerial()->println("]");
+}
 
 // TODO maybe move to comms library
 char serial_command_buffer[64];
@@ -61,8 +68,7 @@ SerialCommands serial_commands(&Serial, serial_command_buffer, sizeof(serial_com
 void recv_speed(SerialCommands* sender)
 {
   char *arg;
-
-  sender->GetSerial()->println("foo");
+  //sender->GetSerial()->println("foo");
   arg = sender->Next();
   if (arg != NULL) {
     leftMotorSetpoint = atof(arg);
@@ -75,7 +81,7 @@ void recv_speed(SerialCommands* sender)
     rightMotorSetpoint = atof(arg);
   }
   else {//TODO: Add error handling
-  }
+  }  
 }
 SerialCommand cmd_recv_speed("SPEED", recv_speed);
 
@@ -111,7 +117,7 @@ void resp_speed(SerialCommands* sender)
   }
 
   read_speeds(side, &count.ival);
-  speed.fval = ((float) count.ival/(side ? TICKS_PER_REV_RIGHT : TICKS_PER_REV_LEFT)) * M_PI * WHEEL_DIAMETER;
+  speed.fval = ((double) count.ival/(side ? TICKS_PER_REV_RIGHT : TICKS_PER_REV_LEFT)) * M_PI * WHEEL_DIAMETER;
   sender->GetSerial()->write(speed.buf, 4);
 }
 SerialCommand cmd_resp_speed("GET_SPEED", resp_speed);
@@ -148,12 +154,14 @@ void setup()
   rightMotorSetpoint = 0;
 
   Wire.begin();
-  Serial.begin(9600);
+  Serial.begin(57600);
   
   leftMotorPID.SetMode(AUTOMATIC);
   rightMotorPID.SetMode(AUTOMATIC);
   leftMotorPID.SetOutputLimits(-255, 255);
   rightMotorPID.SetOutputLimits(-255, 255);
+  leftMotorPID.SetSampleTime(100);
+  rightMotorPID.SetSampleTime(100);
   
   pinMode(RIGHT_MOTOR_INA, OUTPUT);
   pinMode(RIGHT_MOTOR_INB, OUTPUT);
@@ -162,16 +170,11 @@ void setup()
   pinMode(LEFT_MOTOR_INB, OUTPUT);
   pinMode(LEFT_MOTOR_INB, OUTPUT);
 
-  leftMotorSetpoint = 0;
-  rightMotorSetpoint = 0;
-  digitalWrite(LEFT_MOTOR_INA, HIGH);
-  digitalWrite(LEFT_MOTOR_INB, LOW);
-  digitalWrite(RIGHT_MOTOR_INA, HIGH);
-  digitalWrite(RIGHT_MOTOR_INB, LOW);
 
   serial_commands.AddCommand(&cmd_recv_speed);
   serial_commands.AddCommand(&cmd_resp_count);
   serial_commands.AddCommand(&cmd_resp_speed);
+  serial_commands.SetDefaultHandler(cmd_unrecognized);
 }
 
 void loop()
@@ -191,7 +194,7 @@ void loop()
   
   set_speed(RIGHT_MOTOR, rightMotorPWM);
   set_speed(LEFT_MOTOR, leftMotorPWM);
-  
+
   // Serial.print(leftMotorCPS);
   // Serial.print(" ");
   // Serial.print(rightMotorCPS);
@@ -199,7 +202,7 @@ void loop()
   // Serial.print(leftMotorSpeed);
   // Serial.print(" ");
   // Serial.println(rightMotorSpeed);
-  delay(100);
+  delay(10);
 }
 
 void proximity_override()
