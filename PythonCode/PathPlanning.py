@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import time
 from .DriveControlInterop import DriveController
 
-def plan(theta, w, a, dt = .1, r = 14):
+def plan_turn(theta, w, a, dt = .1, r = 14):
     t_ramp = w/a
     theta_min = w**2/a
     theta_rect = theta - theta_min
@@ -51,7 +51,7 @@ def run_plan(controller,control, direction = "right", dt=.1):
 
 
 controller = DriveController("/dev/ttyACM0")
-control, t = plan(np.pi/8, np.pi/2, 2)
+control, t = plan_turn(np.pi/8, np.pi/2, 2)
 
 for i in range(8):
     run_plan(controller, control)
