@@ -50,9 +50,10 @@ def run_plan(controller,control, direction = "right", dt=.1):
         time.sleep(dt)
 
 
-controller = DriveController("/dev/ttyACM0")
-control, t = plan_turn(np.pi/8, np.pi/2, 2)
+if __name__ == "__main__":
+    controller = DriveController("/dev/ttyACM0")
+    control, t = plan_turn(np.pi/8, np.pi/2, 2)
 
-for i in range(8):
-    run_plan(controller, control)
-    time.sleep(1)
+    for i in range(8):
+        run_plan(controller, control)
+        time.sleep(1)

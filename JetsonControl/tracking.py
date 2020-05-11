@@ -1,6 +1,7 @@
-from models import *
-from utils import *
-from sort import *
+#!/usr/bin/python3
+from .models import *
+from .utils.utils import *
+from .sort import *
 
 import os, sys, time, datetime, random
 import torch
@@ -17,6 +18,8 @@ import cv2
 import numpy as np
 
 from PIL import Image
+
+from .PathPlanning import plan_turn, run_plan
 
 # These config and weight files need to be changed to match your current model
 config_path='config/yolov3-tiny.cfg'
